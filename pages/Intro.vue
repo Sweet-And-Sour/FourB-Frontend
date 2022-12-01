@@ -25,17 +25,21 @@
           </span>
         </div>
       </div>
+
+      <span id="scroll-down-text">
+        SCROLL DOWN
+        <i class="bi bi-arrow-down"></i>
+      </span>
     </main>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import FourBLogo from '~/components/FourBLogo.vue';
 import GlobalNavigationBar from '~/components/GlobalNavigationBar.vue';
 
 export default defineComponent({
-  components: { FourBLogo, GlobalNavigationBar },
+  components: { GlobalNavigationBar },
   setup() {
       return {};
   },
@@ -84,7 +88,7 @@ export default defineComponent({
 
       this.currentActivatedIndex = index;
 
-      const margin = -index * 34;
+      const margin = -index * 41;
       this.$refs.group.style.cssText = `margin-top: ${margin}px;`;
     },
     setSectionBackground() {
@@ -106,7 +110,7 @@ export default defineComponent({
   main {
     width: 100%;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
     position: fixed;
     top: 0;
     left: 0;
@@ -166,6 +170,16 @@ export default defineComponent({
   .center-nav .group .active a {
     color: coral;
     font-size: 35px;
+  }
+
+  #scroll-down-text {
+    color: white;
+    font-size: 20px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    position: absolute;
+    right: 20px;
+    bottom: 30px;
   }
 
   section {
