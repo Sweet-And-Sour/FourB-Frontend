@@ -190,7 +190,7 @@ export default defineComponent({
     width: 90%;
     max-width: 400px;
     height: 90%;
-    max-height: 600px;
+    max-height: 800px;
 
     display: flex;
     flex-direction: column;
