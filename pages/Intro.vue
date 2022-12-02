@@ -1,5 +1,5 @@
 <template>
-  <div id="intro-page">
+  <div id="intro-page" ref="page">
     <section
       v-for="item in sections"
       :id="item.title"
@@ -19,9 +19,9 @@
             v-for="(item, index) in sections"
             :key="item.title"
             ref="items"
-            @click="setIndex(index)"
+            @click="scrollTo(index)"
           >
-            <a :href="item.link">{{ item.title }}</a>
+            {{ item.title }}
           </span>
         </div>
       </div>
@@ -45,51 +45,87 @@ export default defineComponent({
   },
   data () {
     return {
-      currentActivatedIndex: 0,
+      current: 0,
       sections: [
         {
           title: 'developer',
-          link: '#developer',
+          selector: '#developer',
           backgroundImage: 'https://images.unsplash.com/photo-1497864149936-d3163f0c0f4b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2338&q=80'
         },
         {
           title: 'artist',
-          link: '#artist',
+          selector: '#artist',
           backgroundImage: 'https://images.unsplash.com/photo-1564715474258-a24341637496?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80'
         },
         {
           title: 'communicators',
-          link: '#communicators',
+          selector: '#communicators',
           backgroundImage: 'https://images.unsplash.com/photo-1513538416877-f11f5fb85d83?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2338&q=80'
         },
         {
           title: 'connected',
-          link: '#connected',
+          selector: '#connected',
           backgroundImage: 'https://images.unsplash.com/photo-1516528387618-afa90b13e000?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80'
         },
         {
           title: 'researchers',
-          link: '#researchers',
+          selector: '#researchers',
           backgroundImage: 'https://images.unsplash.com/photo-1531265726475-52ad60219627?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2382&q=80'
         }
       ]
     }
   },
   mounted () {
-    this.setIndex(0);
     this.setSectionBackground();
+    this.setIndex(0);
+    this.scrollTo(0);
+
+    (this.$refs.page as any).addEventListener('scroll', () => this.scrollEvent());
+  },
+  unmounted () {
+    (this.$refs.page as any).removeEventListener('scroll', () => this.scrollEvent());
   },
   methods: {
-    setIndex (index: number) {
-      const items: any = this.$refs.items;
+    setIndex(index: number) {
+      if (index < 0 || index >= this.sections.length) return;
 
-      items[this.currentActivatedIndex].classList.remove('active');
+      const items: any = this.$refs.items;
+      const group: any = this.$refs.group;
+
+      items[this.current].classList.remove('active');
       items[index].classList.add('active');
 
-      this.currentActivatedIndex = index;
+      this.current = index;
 
       const margin = -index * 41;
-      this.$refs.group.style.cssText = `margin-top: ${margin}px;`;
+      group.style.cssText = `margin-top: ${margin}px;`;
+    },
+    scrollTo (index: number) {
+      if (index < 0 || index >= this.sections.length) return;
+
+      const section: any = document.querySelector(this.sections[index].selector);
+      const position = section.offsetTop;
+
+      this.setIndex(index);
+      (this.$refs.page as any).scrollTo(0, position);
+    },
+    scrollEvent() {
+      const scrollY = (this.$refs.page as any).scrollTop;
+      const sections = document.getElementsByTagName('section');
+
+      let index = 0;
+      let best = Number.MAX_SAFE_INTEGER;
+      
+      for (let i = 0; i < sections.length; i++) {
+        const diff = Math.abs(scrollY - sections[i].offsetTop);
+
+        if (diff < best) {
+          index = i;
+          best = diff;
+        }
+      }
+
+      this.setIndex(index);
     },
     setSectionBackground() {
       const sections: any = this.$refs.sections;
@@ -105,6 +141,22 @@ export default defineComponent({
 <style scoped>
   #intro-page {
     width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    scroll-behavior: smooth;
+  }
+
+  #intro-page::-webkit-scrollbar {
+    display: none;
   }
 
   main {
@@ -117,6 +169,7 @@ export default defineComponent({
     display: flex;
     align-items: center;
     justify-content: center;
+    pointer-events: none;
   }
 
   header {
@@ -132,6 +185,7 @@ export default defineComponent({
     font-weight: bold;
     align-items: flex-start;
     justify-content: center;
+    pointer-events: all;
   }
 
   .center-nav .prefix-text {
@@ -148,18 +202,16 @@ export default defineComponent({
     transition: all 500ms ease-in-out;
   }
 
-  .center-nav .group span {
+  .center-nav .group > span {
     margin-bottom: 10px;
-  }
-
-  .center-nav .group a {
     color: gray;
     font-size: 20px;
     text-decoration: blink;
     transition: all 500ms ease-in-out;
+    cursor: pointer;
   }
 
-  .center-nav .group a:hover {
+  .center-nav .group > span:hover {
     color: coral;
   }
 
@@ -167,7 +219,7 @@ export default defineComponent({
     border-right: 5px solid coral;
   }
 
-  .center-nav .group .active a {
+  .center-nav .group .active {
     color: coral;
     font-size: 35px;
   }
@@ -188,5 +240,6 @@ export default defineComponent({
     height: 100vh;
     position: relative;
     background-size: cover;
+    scroll-snap-align: start;
   }
 </style>
