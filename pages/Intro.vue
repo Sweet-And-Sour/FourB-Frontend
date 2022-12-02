@@ -14,7 +14,7 @@
 
       <div class="center-nav">
         <span class="prefix-text">We are</span>
-        <div class="group" ref="group">
+        <div ref="group" class="group">
           <span
             v-for="(item, index) in sections"
             :key="item.title"
