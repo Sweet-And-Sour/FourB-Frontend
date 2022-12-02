@@ -19,8 +19,13 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap' },
+      { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css' },
+      { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css' }
     ],
+    script: [
+      { src: 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js' }
+    ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
