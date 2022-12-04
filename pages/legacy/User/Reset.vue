@@ -22,8 +22,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import GlobalNavigationBar from '~/components/GlobalNavigationBar.vue';
-import GlobalFotter from '~/components/GlobalFotter.vue';
+import GlobalNavigationBar from '~/components/legacy/GlobalNavigationBar.vue';
+import GlobalFotter from '~/components/legacy/GlobalFotter.vue';
 
 export default defineComponent({
     components: { GlobalNavigationBar, GlobalFotter },

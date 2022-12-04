@@ -34,7 +34,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import GlobalFotter from '~/components/GlobalFotter.vue';
+import GlobalFotter from '~/components/legacy/GlobalFotter.vue';
 
 export default defineComponent({
     components: { GlobalFotter },

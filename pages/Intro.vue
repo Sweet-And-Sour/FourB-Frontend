@@ -36,7 +36,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import GlobalNavigationBar from '~/components/GlobalNavigationBar.vue';
+import GlobalNavigationBar from '~/components/legacy/GlobalNavigationBar.vue';
 
 export default defineComponent({
   components: { GlobalNavigationBar },
