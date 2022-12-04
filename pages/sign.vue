@@ -116,6 +116,11 @@ export default defineComponent({
   },
   methods: {
     setMode (mode: string) {
+      const forms = document.getElementsByTagName('form');
+      for (let i = 0; i < forms.length; i++) {
+        forms[i].classList.remove('was-validated');
+      }
+
       this.mode = mode;
     },
     signUp(_event: any) {
