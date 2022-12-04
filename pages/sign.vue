@@ -4,6 +4,10 @@
       <img src="~assets/images/sign_background.png" />
     </div>
 
+    <div class="alerts">
+      <AlertArea ref="alertArea" />
+    </div>
+
     <main>
       <form
         v-if="mode === 'sign-in'"
@@ -29,7 +33,7 @@
         </div>
 
         <div class="d-grid">
-          <button type="button" class="btn btn-secondary">Log in Now</button>
+          <button type="button" class="btn btn-primary">Log in Now</button>
           <div class="line-label">OR</div>
           <button type="button" class="btn btn-outline-dark" @click="setMode('sign-up')">Sign up Now</button>
         </div>
@@ -46,25 +50,28 @@
         
         <div>
           <div class="mb-3 field">
-            <label for="username" class="form-label">Email Address</label>
-            <input id="username" type="text" class="form-control" placeholder="username">
+            <label for="username" class="form-label">Username</label>
+            <input id="username" type="text" class="form-control" placeholder="username" required>
+            <div class="invalid-feedback">정확한 값을 입력해 주세요!</div>
           </div>
 
           <div class="mb-3 field">
             <label for="email" class="form-label">Email Address</label>
-            <input id="email" type="email" class="form-control" placeholder="alex@email.com">
+            <input id="email" type="email" class="form-control" placeholder="alex@email.com" required>
+            <div class="invalid-feedback">정확한 값을 입력해 주세요!</div>
           </div>
 
           <div class="mb-3 field">
-            <label for="passwrod" class="form-label">Password</label>
-            <input  id="passwrod" type="password" class="form-control" placeholder="password">
+            <label for="password" class="form-label">Password</label>
+            <input  id="password" type="password" class="form-control" placeholder="password" required>
+            <div class="invalid-feedback">정확한 값을 입력해 주세요!</div>
           </div>
         </div>
 
         <div class="d-grid">
-          <button type="button" class="btn btn-secondary">Log in Now</button>
+          <button type="button" class="btn btn-success" @click="signUp">Sign Up!</button>
           <div class="line-label">OR</div>
-          <button type="button" class="btn btn-outline-dark" @click="setMode('sign-in')">Sign in Now</button>
+          <button type="button" class="btn btn-outline-dark" @click="setMode('sign-in')">Back to Sign In</button>
         </div>
       </form>
 
@@ -85,9 +92,9 @@
         </div>
 
         <div class="d-grid">
-          <button type="button" class="btn btn-secondary">Reset the Password</button>
+          <button type="button" class="btn btn-danger">Reset the Password</button>
           <div class="line-label">OR</div>
-          <button type="button" class="btn btn-outline-dark" @click="setMode('sign-in')">Sign in Now</button>
+          <button type="button" class="btn btn-outline-dark" @click="setMode('sign-in')">Back to Sign In</button>
         </div>
       </form>
     </main>
@@ -95,6 +102,7 @@
 </template>
 
 <script lang="ts">
+import axios from 'axios';
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -109,8 +117,51 @@ export default defineComponent({
   methods: {
     setMode (mode: string) {
       this.mode = mode;
+    },
+    signUp(_event: any) {
+      const signUpForm = document.getElementById('sign-up-form') as HTMLFormElement;
+
+      if (!signUpForm.checkValidity()) {
+        signUpForm.classList.add('was-validated');
+        return undefined;
+      }
+
+      const alertArea: any = this.$refs.alertArea;
+
+      const fields = ['username', 'email', 'password'];
+      const data: any = {};
+      const config = {
+        headers: {
+          accept: '*/*',
+          'Content-Type': 'application/json'
+        }
+      };
+
+      for (const fieldName of fields) {
+        const field = document.getElementById(fieldName) as HTMLInputElement;
+        data[fieldName] = field!.value;
+      }
+
+      axios
+        .post('/api/user', data, config)
+        .then((response) => {
+          console.log(response);
+          if (response.data.success) {
+            alertArea.addAlert('회원 가입 성공!', 'primary', 'bi-info-circle-fill');
+            this.setMode('sign-in');
+
+            for (const fieldName of fields) {
+              const field = document.getElementById(fieldName) as HTMLInputElement;
+              field.value = '';
+            }
+          } else {
+            alertArea.addAlert('회원 가입에 실패했습니다!', 'danger', 'bi-exclamation-triangle-fill');
+          }
+        });
+
+      return undefined;
     }
-  }
+  },
 })
 </script>
 
@@ -150,6 +201,14 @@ export default defineComponent({
   .background > img {
     width: 60%;
     padding-left: 30%;
+  }
+
+  .alerts {
+    width: 500px;
+    height: 80%;
+    position: absolute;
+    top: 10px;
+    right: 10px;
   }
 
   .logo {
