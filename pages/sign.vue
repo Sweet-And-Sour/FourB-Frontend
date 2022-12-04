@@ -154,7 +154,7 @@ export default defineComponent({
               field.value = '';
             }
           } else {
-            alertArea.addAlert('회원 가입에 실패했습니다!', 'danger', 'bi-exclamation-triangle-fill');
+            alertArea.addAlert(`회원 가입에 실패했습니다! (${response.data.message})`, 'danger', 'bi-exclamation-triangle-fill');
           }
         });
 
