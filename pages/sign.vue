@@ -31,13 +31,13 @@
             <div class="invalid-feedback">정확한 값을 입력해 주세요!</div>
           </div>
 
-          <a class="forgot-password" href="#" @click="setMode('find-pw')">Forgot Password?</a>
+          <a class="forgot-password" href="#" data-mode="find-pw" @click="setModeEvent">Forgot Password?</a>
         </div>
 
         <div class="d-grid">
           <button type="button" class="btn btn-primary" @click="signIn">Log in Now</button>
           <div class="line-label">OR</div>
-          <button type="button" class="btn btn-outline-dark" @click="setMode('sign-up')">Sign up Now</button>
+          <button type="button" class="btn btn-outline-dark" data-mode="sign-up" @click="setModeEvent">Sign up Now</button>
         </div>
       </form>
 
@@ -73,7 +73,7 @@
         <div class="d-grid">
           <button type="button" class="btn btn-success" @click="signUp">Sign Up!</button>
           <div class="line-label">OR</div>
-          <button type="button" class="btn btn-outline-dark" @click="setMode('sign-in')">Back to Sign In</button>
+          <button type="button" class="btn btn-outline-dark" data-mode="sign-in" @click="setModeEvent">Back to Sign In</button>
         </div>
       </form>
 
@@ -96,7 +96,7 @@
         <div class="d-grid">
           <button type="button" class="btn btn-danger">Reset the Password</button>
           <div class="line-label">OR</div>
-          <button type="button" class="btn btn-outline-dark" @click="setMode('sign-in')">Back to Sign In</button>
+          <button type="button" class="btn btn-outline-dark" data-mode="sign-in" @click="setModeEvent">Back to Sign In</button>
         </div>
       </form>
     </main>
@@ -118,13 +118,23 @@ export default defineComponent({
     }
   },
   methods: {
-    setMode (mode: string) {
+    setMode (mode: string | undefined) {
+      if (mode === undefined) {
+        mode = 'sign-in';
+      }
+
       const forms = document.getElementsByTagName('form');
       for (let i = 0; i < forms.length; i++) {
         forms[i].classList.remove('was-validated');
       }
 
       this.mode = mode;
+    },
+    setModeEvent(event: MouseEvent) {
+      const target = event.target as HTMLElement;
+      this.setMode(target.dataset.mode);
+
+      return undefined;
     },
     keydownEnterEvent(_event: any) {
       if (this.mode === 'sign-in') {
