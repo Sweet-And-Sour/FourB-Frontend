@@ -145,7 +145,6 @@ export default defineComponent({
       axios
         .post('/api/user', data, config)
         .then((response) => {
-          console.log(response);
           if (response.data.success) {
             alertArea.addAlert('회원 가입 성공!', 'primary', 'bi-info-circle-fill');
             this.setMode('sign-in');
