@@ -131,8 +131,6 @@ export default defineComponent({
         return undefined;
       }
 
-      const alertArea: any = this.$refs.alertArea;
-
       const fields = ['username', 'email', 'password'];
       const data: any = {};
       const config = {
@@ -146,6 +144,8 @@ export default defineComponent({
         const field = document.getElementById(fieldName) as HTMLInputElement;
         data[fieldName] = field!.value;
       }
+
+      const alertArea: any = this.$refs.alertArea;
 
       axios
         .post('/api/user', data, config)
