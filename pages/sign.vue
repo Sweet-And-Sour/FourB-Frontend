@@ -20,20 +20,22 @@
         
         <div>
           <div class="mb-3 field">
-            <label for="email" class="form-label">Email Address</label>
-            <input id="email" type="email" class="form-control" placeholder="alex@email.com">
+            <label for="username" class="form-label">Username</label>
+            <input id="username" type="text" class="form-control" placeholder="username" required>
+            <div class="invalid-feedback">정확한 값을 입력해 주세요!</div>
           </div>
 
           <div class="mb-3 field">
             <label for="password" class="form-label">Password</label>
-            <input  id="password" type="password" class="form-control" placeholder="password">
+            <input  id="password" type="password" class="form-control" placeholder="password" required>
+            <div class="invalid-feedback">정확한 값을 입력해 주세요!</div>
           </div>
 
           <a class="forgot-password" href="#" @click="setMode('find-pw')">Forgot Password?</a>
         </div>
 
         <div class="d-grid">
-          <button type="button" class="btn btn-primary">Log in Now</button>
+          <button type="button" class="btn btn-primary" @click="signIn">Log in Now</button>
           <div class="line-label">OR</div>
           <button type="button" class="btn btn-outline-dark" @click="setMode('sign-up')">Sign up Now</button>
         </div>
@@ -103,6 +105,7 @@
 
 <script lang="ts">
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -122,6 +125,56 @@ export default defineComponent({
       }
 
       this.mode = mode;
+    },
+    signIn(_event: any) {
+      const signInForm = document.getElementById('sign-in-form') as HTMLFormElement;
+
+      if (!signInForm.checkValidity()) {
+        signInForm.classList.add('was-validated');
+        return undefined;
+      }
+
+      const fields = ['username', 'password'];
+      const data: any = {};
+      const config = {
+        headers: {
+          accept: '*/*',
+          'Content-Type': 'application/json'
+        }
+      };
+
+      for (const fieldName of fields) {
+        const field = document.getElementById(fieldName) as HTMLInputElement;
+        data[fieldName] = field!.value;
+      }
+
+      const alertArea: any = this.$refs.alertArea;
+      
+      axios
+        .post('/api/sign', data, config)
+        .then((response) => {
+          for (const fieldName of fields) {
+            const field = document.getElementById(fieldName) as HTMLInputElement;
+            field.value = '';
+          }
+
+          const accessToken = response.data.access_token;
+          Cookies.set('accessToken', accessToken);
+
+          // Move Page
+          window.location.href = '/';
+        })
+        .catch((error) => {
+          let message = `<br>(알수 없는 오류: ${error})`;
+
+          if (error.response && error.response.status === 401) {
+            message = '<br>(아이디 혹은 패스워드를 확인해 주세요)';
+          }
+
+          alertArea.addAlert(`로그인에 실패했습니다!${message}`, 'danger', 'bi-exclamation-triangle-fill');
+        });
+
+      return undefined;
     },
     signUp(_event: any) {
       const signUpForm = document.getElementById('sign-up-form') as HTMLFormElement;
