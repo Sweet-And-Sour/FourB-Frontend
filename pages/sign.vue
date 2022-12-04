@@ -8,7 +8,7 @@
       <AlertArea ref="alertArea" />
     </div>
 
-    <main>
+    <main @keydown.enter="keydownEnterEvent">
       <form
         v-if="mode === 'sign-in'"
         id="sign-in-form"
@@ -125,6 +125,17 @@ export default defineComponent({
       }
 
       this.mode = mode;
+    },
+    keydownEnterEvent(_event: any) {
+      if (this.mode === 'sign-in') {
+        this.signIn({});
+      } else if (this.mode === 'sign-up') {
+        this.signUp({});
+      } else if (this.mode === 'find-pw') {
+        // TODO: 기능 구현중
+      }
+
+      return undefined;
     },
     signIn(_event: any) {
       const signInForm = document.getElementById('sign-in-form') as HTMLFormElement;
