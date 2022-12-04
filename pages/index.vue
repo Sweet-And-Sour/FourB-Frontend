@@ -9,7 +9,7 @@
 
     <main>
       <header>
-        <GlobalNavigationBar />
+        <span class="logo">4b</span>
       </header>
 
       <div class="center-nav">
@@ -36,10 +36,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import GlobalNavigationBar from '~/components/legacy/GlobalNavigationBar.vue';
 
 export default defineComponent({
-  components: { GlobalNavigationBar },
   setup() {
       return {};
   },
@@ -173,10 +171,17 @@ export default defineComponent({
   }
 
   header {
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: fixed;
+    top: 15px;
+    left: 20px;
+  }
+
+  .logo {
+    font-family: 'Fondamento', cursive;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 40px;
+    color: white;
   }
 
   .center-nav {
