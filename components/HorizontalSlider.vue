@@ -1,6 +1,6 @@
 <template>
   <div class="slider">
-    <button class="btn left" @click="moveLeft">
+    <button class="left" @click="moveLeft">
       <i class="bi bi-chevron-left"></i>
     </button>
 
@@ -10,7 +10,7 @@
       </div>
     </content>
 
-    <button class="btn right" @click="moveRight">
+    <button class="right" @click="moveRight">
       <i class="bi bi-chevron-right"></i>
     </button>
   </div>
@@ -73,8 +73,9 @@ export default defineComponent({
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
-
+  
   .slider content {
     width: 100%;
     overflow: hidden;
@@ -87,13 +88,37 @@ export default defineComponent({
     transition: all 500ms ease;
   }
 
-  .slider .btn.left {
+  .slider > .left,
+  .slider > .right {
+    height: 100%;
+    width: 100px;
     font-size: 30px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    color: transparent;
+    position: absolute;
+    top: 0;
     z-index: 2;
+    transition: all 150ms ease;
   }
 
-  .slider .btn.right {
-    font-size: 30px;
-    z-index: 2;
+  .slider:hover > .left,
+  .slider:hover > .right {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  .slider > .left:active,
+  .slider > .right:active {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  .slider > .left {
+    left: 0;
+  }
+
+  .slider > .right {
+    right: 0;
   }
 </style>
