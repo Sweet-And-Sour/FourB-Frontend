@@ -151,56 +151,56 @@ export default defineComponent({
       works: [
           {
               id: 0,
-              thumbnailImage: "https://images.unsplash.com/photo-1670147492499-d05501793481?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-              title: "Title",
+              thumbnailImage: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80",
+              title: "Food photos that make you hungry just by looking at them Food photos that make you hungry just by looking at them",
               author: "Author",
               description: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
               link: "#",
           },
           {
               id: 1,
-              thumbnailImage: "https://images.unsplash.com/photo-1670147492499-d05501793481?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-              title: "Title",
+              thumbnailImage: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+              title: "Food photos that make you hungry just by looking at them",
               author: "Author",
               description: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
               link: "#",
           },
           {
               id: 2,
-              thumbnailImage: "https://images.unsplash.com/photo-1670147492499-d05501793481?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-              title: "Title",
+              thumbnailImage: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80",
+              title: "Food photos that make you hungry just by looking at them",
               author: "Author",
               description: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
               link: "#",
           },
           {
               id: 3,
-              thumbnailImage: "https://images.unsplash.com/photo-1670147492499-d05501793481?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-              title: "Title",
+              thumbnailImage: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1310&q=80",
+              title: "Food photos that make you hungry just by looking at them Food photos that make you hungry just by looking at them",
               author: "Author",
               description: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
               link: "#",
           },
           {
               id: 4,
-              thumbnailImage: "https://images.unsplash.com/photo-1670147492499-d05501793481?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-              title: "Title",
+              thumbnailImage: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1498&q=80",
+              title: "Food photos that make you hungry just by looking at them Food photos that make you hungry just by looking at them",
               author: "Author",
               description: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
               link: "#",
           },
           {
               id: 5,
-              thumbnailImage: "https://images.unsplash.com/photo-1670147492499-d05501793481?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-              title: "Title",
+              thumbnailImage: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+              title: "Food photos that make you hungry just by looking at them",
               author: "Author",
               description: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
               link: "#",
           },
           {
               id: 6,
-              thumbnailImage: "https://images.unsplash.com/photo-1670147492499-d05501793481?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-              title: "Title",
+              thumbnailImage: "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80",
+              title: "Food photos that make you hungry just by looking at them",
               author: "Author",
               description: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
               link: "#",
@@ -410,6 +410,10 @@ export default defineComponent({
     color: black;
     text-decoration: blink;
     margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
   }
 
   #other-works .item .thumbnail-image {
@@ -424,8 +428,14 @@ export default defineComponent({
   }
 
   #other-works .item .title {
+    color: black;
     font-size: 25px;
-    font-weight: bold;
-    padding: 5px 10px;
+    padding: 10px 10px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
   }
 </style>
