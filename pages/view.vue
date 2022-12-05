@@ -245,7 +245,7 @@ export default defineComponent({
   }
 
   main > content h1 {
-    margin-bottom: 50px;
+    margin-bottom: 10px;
   }
 
   main > content > img {
