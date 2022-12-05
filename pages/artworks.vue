@@ -288,7 +288,7 @@ export default defineComponent({
   main > section .title {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
   }
 
