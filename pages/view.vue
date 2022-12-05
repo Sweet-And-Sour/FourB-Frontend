@@ -4,8 +4,11 @@
 
     <main>
       <content>
+        <!-- TODO: 서버에서 내용을 받아서 HTML 그대로 삽입합니다!! -->
         <h1>{{ title }}</h1>
         <img src="https://images.unsplash.com/photo-1515405295579-ba7b45403062?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1780&q=80" alt="image" />
+        <h2>The standard Lorem Ipsum passage, used since the 1500s</h2>
+        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
       </content>
 
       <a id="author" href="#">
@@ -230,7 +233,7 @@ export default defineComponent({
 
   main > content {
     margin-top: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
     display: flex;
     flex-direction: column;
   }
@@ -238,6 +241,7 @@ export default defineComponent({
   main > content * {
     max-width: 100%;
     transition: all 500ms ease;
+    margin: 20px 0;
   }
 
   main > content h1 {
