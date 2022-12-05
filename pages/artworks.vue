@@ -7,6 +7,9 @@
         <div class="title">
           <div class="left">
             <h1>Categories</h1>
+            <div class="text-muted">
+              원하는 카테고리의 작품들을 모아서 보세요!
+            </div>
           </div>
         </div>
 
@@ -36,6 +39,9 @@
         <div class="title">
           <div class="left">
             <h1>Artworks</h1>
+            <div class="text-muted">
+              다양한 작품들을 감상해 보세요!
+            </div>
           </div>
 
           <div class="right">
@@ -294,6 +300,10 @@ export default defineComponent({
     color: gray;
     font-size: 16px;
     font-family: monospace;
+  }
+
+  #artwork .title {
+    margin-bottom: 20px;
   }
 
   #artwork content {
