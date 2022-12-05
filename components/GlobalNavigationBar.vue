@@ -31,10 +31,10 @@
             <span v-else>Sign In</span>
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a v-if="!isSign" class="dropdown-item" href="#">Sign Up</a></li>
+            <li><a v-if="!isSign" class="dropdown-item" href="/sign">Sign In / Up</a></li>
 
-            <li><a v-if="isSign" class="dropdown-item" href="#">Create</a></li>
-            <li><a v-if="isSign" class="dropdown-item" href="#">Team</a></li>
+            <li><a v-if="isSign" class="dropdown-item" href="/edit">Create</a></li>
+            <li><a v-if="isSign" class="dropdown-item" href="/team">Team</a></li>
             <li><a v-if="isSign" class="dropdown-item" href="#">Logout</a></li>
           </ul>
         </div>
@@ -66,15 +66,15 @@ export default defineComponent({
       navItems: [
         {
           title: 'Artworks',
-          link: '#',
+          link: '/artworks',
         },
         {
           title: 'Create',
-          link: '#',
+          link: '/edit',
         },
         {
           title: 'Team',
-          link: '#',
+          link: '/team',
         },
       ],
     }
