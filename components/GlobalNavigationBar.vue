@@ -82,6 +82,14 @@ export default defineComponent({
 <style scoped>
   .navbar {
     height: 60px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .navbar * {
+    transition: all 300ms ease;
   }
 
   .navbar .container-fluid {
