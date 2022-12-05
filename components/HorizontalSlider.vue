@@ -1,5 +1,5 @@
 <template>
-  <div class="slider">
+  <div ref="slider" class="slider">
     <button class="left" @click="moveLeft">
       <i class="bi bi-chevron-left"></i>
     </button>
@@ -44,19 +44,34 @@ export default defineComponent({
   },
   methods: {
     moveLeft (_event: any) {
-      if (this.position >= 0) return undefined;
-      this.position += this.moveStep * this.itemWidth;
-
       const wrap = this.$refs.wrap as HTMLElement;
+
+      if (this.itemWidth < 0) {
+        this.position += this.moveStep * wrap.children[0].scrollWidth;
+      } else {
+        this.position += this.moveStep * this.itemWidth;
+      }
+
+      if (this.position >= 0) this.position = 0;
       wrap.style.cssText = `transform: translateX(${this.position}px)`;
 
       return undefined;
     },
     moveRight (_event: any) {
-      if (this.position <= -(this.itemLength - 1) * this.itemWidth) return undefined;
-      this.position -= this.moveStep * this.itemWidth;
-
       const wrap = this.$refs.wrap as HTMLElement;
+      const slider = this.$refs.slider as HTMLElement;
+      const limit = -1 * wrap.offsetWidth + slider.offsetWidth;
+
+      if (this.itemWidth < 0) {
+        this.position -= this.moveStep * wrap.children[0].scrollWidth;
+      } else {
+        this.position -= this.moveStep * this.itemWidth;
+      }
+
+      if (this.position <= limit) {
+        this.position = limit;
+      }
+
       wrap.style.cssText = `transform: translateX(${this.position}px)`;
 
       return undefined;
@@ -83,7 +98,6 @@ export default defineComponent({
   }
 
   .slider .wrap {
-    margin: 40px 0;
     display: inline-flex;
     transition: all 500ms ease;
   }
