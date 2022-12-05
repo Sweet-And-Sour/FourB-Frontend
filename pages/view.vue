@@ -402,6 +402,7 @@ export default defineComponent({
   }
 
   #other-works h1 {
+    color: gray;
     padding: 0 20px;
   }
 
