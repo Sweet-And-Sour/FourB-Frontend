@@ -47,8 +47,15 @@
 
           <div class="input">
             <div class="mb-3">
-              <textarea id="exampleFormControlTextarea1" class="form-control" rows="3" placeholder="댓글을 입력하세요."></textarea>
-              <span id="input-commnet-length">0 / 100</span>
+              <textarea
+                id="exampleFormControlTextarea1"
+                v-model="commentText"
+                class="form-control"
+                rows="3"
+                placeholder="댓글을 입력하세요."
+                :maxlength="maxCommentTextLength"
+              ></textarea>
+              <span id="input-commnet-length">{{ commentText.length }} / {{ maxCommentTextLength }}</span>
             </div>
 
           </div>
@@ -216,6 +223,8 @@ export default defineComponent({
               link: "#",
           },
       ],
+      commentText: '',
+      maxCommentTextLength: 1000,
     }
   }
 })
