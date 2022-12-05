@@ -97,6 +97,22 @@
         </content>
       </div>
     </main>
+
+    <section id="other-works">
+      <h1>Other Works</h1>
+
+      <HorizontalSlider :item-width="300" :move-step="2" :item-length="works.length">
+        <a
+          v-for="item in works"
+          :key="item.id"
+          class="item"
+          :href="item.link"
+        >
+          <div class="thumbnail-image" :style="`background-image: url(${item.thumbnailImage});`"></div>
+          <span class="title">{{ item.title }}</span>
+        </a>
+      </HorizontalSlider>
+    </section>
   </div>
 </template>
 
@@ -131,6 +147,64 @@ export default defineComponent({
           likes: 0,
           unlikes: 0,
         },
+      ],
+      works: [
+          {
+              id: 0,
+              thumbnailImage: "https://images.unsplash.com/photo-1670147492499-d05501793481?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+              title: "Title",
+              author: "Author",
+              description: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
+              link: "#",
+          },
+          {
+              id: 1,
+              thumbnailImage: "https://images.unsplash.com/photo-1670147492499-d05501793481?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+              title: "Title",
+              author: "Author",
+              description: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
+              link: "#",
+          },
+          {
+              id: 2,
+              thumbnailImage: "https://images.unsplash.com/photo-1670147492499-d05501793481?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+              title: "Title",
+              author: "Author",
+              description: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
+              link: "#",
+          },
+          {
+              id: 3,
+              thumbnailImage: "https://images.unsplash.com/photo-1670147492499-d05501793481?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+              title: "Title",
+              author: "Author",
+              description: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
+              link: "#",
+          },
+          {
+              id: 4,
+              thumbnailImage: "https://images.unsplash.com/photo-1670147492499-d05501793481?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+              title: "Title",
+              author: "Author",
+              description: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
+              link: "#",
+          },
+          {
+              id: 5,
+              thumbnailImage: "https://images.unsplash.com/photo-1670147492499-d05501793481?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+              title: "Title",
+              author: "Author",
+              description: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
+              link: "#",
+          },
+          {
+              id: 6,
+              thumbnailImage: "https://images.unsplash.com/photo-1670147492499-d05501793481?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+              title: "Title",
+              author: "Author",
+              description: `Some quick example text to build on the card title and make up the bulk of the card's content.`,
+              link: "#",
+          },
       ],
     }
   }
@@ -320,5 +394,37 @@ export default defineComponent({
   #comments .btn-group .btn {
     font-size: 18px;
     margin: 0;
+  }
+
+  #other-works {
+    margin-top: 80px;
+    margin-bottom: 50px;
+  }
+
+  #other-works h1 {
+    padding: 0 20px;
+  }
+
+  #other-works .item {
+    color: black;
+    text-decoration: blink;
+    margin: 0 20px;
+  }
+
+  #other-works .item .thumbnail-image {
+    width: 300px;
+    height: 300px;
+    background-size: cover;
+    border-radius: 20px;
+  }
+
+  #other-works .item:hover .thumbnail-image {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+  }
+
+  #other-works .item .title {
+    font-size: 25px;
+    font-weight: bold;
+    padding: 5px 10px;
   }
 </style>
