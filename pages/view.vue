@@ -227,27 +227,27 @@ export default defineComponent({
     max-width: 1200px;
   }
 
-  content {
+  main > content {
     margin-top: 20px;
     margin-bottom: 50px;
     display: flex;
     flex-direction: column;
   }
 
-  content * {
+  main > content * {
     max-width: 100%;
     transition: all 500ms ease;
   }
 
-  content h1 {
+  main > content h1 {
     margin-bottom: 50px;
   }
 
-  content > img {
+  main > content > img {
     border-radius: 20px;
   }
 
-  content > img:hover {
+  main > content > img:hover {
     border-radius: 0;
   }
 
@@ -354,7 +354,7 @@ export default defineComponent({
 
    #comment-wrap > .btn-wrap {
     text-align: right;
-    margin: 20px 0;
+    margin-top: 20px;
   }
 
   #comments {
