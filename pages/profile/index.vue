@@ -423,6 +423,10 @@ export default defineComponent({
     color: black;
   }
 
+  #my-works .slider {
+    margin: 40px 0;
+  }
+
   .card {
     display: inline-block;
     margin: 0 20px;
@@ -432,5 +436,9 @@ export default defineComponent({
     width: 100%;
     height: 300px;
     background-size: cover;
+  }
+
+  #likes .slider {
+    margin: 40px 0;
   }
 </style>

@@ -298,6 +298,10 @@ export default defineComponent({
     margin: 20px 0;
   }
 
+  #category content .slider {
+    margin: 40px 0;
+  }
+
   #category content .item {
     margin: 0 20px;
     color: black;

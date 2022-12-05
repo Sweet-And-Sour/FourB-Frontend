@@ -426,6 +426,10 @@ export default defineComponent({
     padding: 0 20px;
   }
 
+  #other-works .slider {
+    margin: 40px 0;
+  }
+
   #other-works .item {
     color: black;
     text-decoration: blink;
