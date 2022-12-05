@@ -23,6 +23,79 @@
           {{ bio }}
         </span>
       </a>
+
+      <div id="comment-wrap">
+        <div class="statistics">
+          <span>
+            <i class="bi bi-heart"></i>
+            62
+          </span>
+
+          <span>
+            <i class="bi bi-chat-dots"></i>
+            {{ comments.length }}
+          </span>
+        </div>
+
+        <div class="new-comment">
+          <div class="avatar">
+            <i class="bi bi-person-circle"></i>
+          </div>
+
+          <div class="input">
+            <div class="mb-3">
+              <textarea id="exampleFormControlTextarea1" class="form-control" rows="3" placeholder="댓글을 입력하세요."></textarea>
+              <span id="input-commnet-length">0 / 100</span>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="btn-wrap">
+          <button id="add-comment-btn" class="btn btn-secondary">Add Comment</button>
+        </div>
+
+        <content id="comments">
+          <div
+            v-for="item in comments"
+            :key="item.id"
+            class="item"
+          >
+            <div class="avatar">
+              <i class="bi bi-person-circle"></i>
+            </div>
+
+            <div>
+              <div>
+                <span class="username">{{ item.username }}</span>
+                <span class="created">1 day ago</span>
+              </div>
+
+              <div class="content">{{ item.content }}</div>
+
+              <div class="btn-group">
+                <div>
+                  <button class="btn likes" type="button">
+                    <i class="bi bi-hand-thumbs-up"></i>
+                    {{ item.likes }}
+                  </button>
+                </div>
+
+                <div>
+                  <button class="btn unlikes" type="button">
+                    <i class="bi bi-hand-thumbs-down"></i>
+                    {{ item.unlikes }}
+                  </button>
+                </div>
+
+                <div>
+                  <button href="#" class="btn reply-to" type="button">Reply to</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </content>
+      </div>
     </main>
   </div>
 </template>
@@ -41,6 +114,24 @@ export default defineComponent({
       username: 'Username',
       email: 'example@email',
       bio: '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."',
+      comments: [
+        {
+          id: 0,
+          username: 'Vinh Bui',
+          content: 'Lorem ipsum dolor sit amet, vince adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+          createdDataTime: '',
+          likes: 0,
+          unlikes: 0,
+        },
+        {
+          id: 1,
+          username: 'Vinh Bui',
+          content: 'Lorem ipsum dolor sit amet, vince adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+          createdDataTime: '',
+          likes: 0,
+          unlikes: 0,
+        },
+      ],
     }
   }
 })
@@ -138,5 +229,96 @@ export default defineComponent({
     font-size: 16px;
   }
 
-  
+  #comment-wrap  {
+    width: 100%;
+    background-color: #F1F3F6;
+    border-radius: 20px;
+    margin: 40px 0;
+    padding: 20px;
+  }
+
+  #comment-wrap .statistics {
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  #comment-wrap .statistics span {
+    font-size: 20px;
+    padding: 0 10px;
+    color: gray;
+  }
+
+  #comment-wrap .statistics i {
+    margin-right: 5px;
+  }
+
+  #comment-wrap .new-comment {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  #comment-wrap .new-comment .avatar {
+    font-size: 35px;
+    margin-right: 20px;
+    color: gray;
+  }
+
+  #comment-wrap .new-comment .input {
+    width: 100%;
+  }
+
+  #input-commnet-length {
+    float: right;
+    font-size: 18px;
+    color: gray;
+  }
+
+   #comment-wrap > .btn-wrap {
+    text-align: right;
+    margin: 20px 0;
+  }
+
+  #comments {
+    margin-top: 20px;
+  }
+
+  #comments .item {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 20px 0;
+  }
+
+  #comments .avatar {
+    font-size: 35px;
+    margin-right: 20px;
+    color: gray;
+  }
+
+  #comments .username {
+    font-size: 20px;
+    color: gray;
+  }
+
+  #comments .created {
+    font-size: 16px;
+    color: lightslategray;
+    padding: 0 10px;
+  }
+
+  #comments .content {
+    font-size: 20px;
+    margin: 10px 0;
+  }
+
+  #comments .btn-group .btn {
+    font-size: 18px;
+    margin: 0;
+  }
 </style>
