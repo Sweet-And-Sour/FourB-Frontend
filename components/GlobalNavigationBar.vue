@@ -102,4 +102,19 @@ export default defineComponent({
     font-style: italic;
     font-size: 20px;
   }
+
+  @media screen and (max-width: 991px) {
+    .navbar .navbar-collapse.collapsing,
+    .navbar .navbar-collapse.collapse {
+      background-color: rgb(248, 249, 250);
+      position: fixed;
+      top: 50px;
+      left: 0;
+      width: 100%;
+    }
+
+    .navbar .navbar-collapse.collapse {
+      padding: 20px;
+    }
+  }
 </style>
