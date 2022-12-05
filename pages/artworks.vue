@@ -11,6 +11,12 @@
               원하는 카테고리의 작품들을 모아서 보세요!
             </div>
           </div>
+
+          <div class="right">
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#categoryModal">
+              Show More
+            </button>
+          </div>
         </div>
 
         <content>
@@ -86,6 +92,32 @@
         </content>
       </section>
     </main>
+
+    <!-- Category Modal -->
+    <div id="categoryModal" class="modal fade" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 id="categoryModalLabel" class="modal-title fs-5">All Categories</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="d-flex my-3">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </div>
+
+            <ul class="list-group">
+              <a v-for="item in categories" :key="item.title" class="list-group-item" :href="item.link">{{ item.title }}</a>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
