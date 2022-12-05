@@ -1,0 +1,376 @@
+<template>
+  <div id="artworks-page">
+    <GlobalNavigationBar />
+
+    <main>
+      <section id="category">
+        <div class="title">
+          <div class="left">
+            <h1>Categories</h1>
+          </div>
+        </div>
+
+        <content>
+          <HorizontalSlider
+            :item-width="300"
+            :move-step="2"
+            :item-length="categories.length"
+          >
+            <a
+              v-for="item in categories"
+              :key="item.title"
+              class="item"
+              :href="item.link"
+            >
+              <div class="thumbnail-image" :style="`background-image: url(${item.thumbnailImage});`"></div>
+              <div class="info">
+                <span class="title">{{ item.title }}</span>
+                <span class="content-count">{{ parseInt(item.contentCount).toLocaleString() }}</span>
+              </div>
+           </a>
+          </HorizontalSlider>
+        </content>
+      </section>
+
+      <section id="artwork">
+        <div class="title">
+          <div class="left">
+            <h1>Artworks</h1>
+          </div>
+        </div>
+
+        <content>
+          <div v-for="(column, index) in artworks" :key="index" class="column">
+            <div
+              v-for="item in column"
+              :key="item.id"
+              class="item"
+            >
+              <a :href="item.link">
+                <div class="thumbnail">
+                  <img :src="item.thumbnailImage" alt="thumbnail" />
+
+                  <div class="top">
+                    <button :data-id="item.id" @click.prevent="artworkLikeBtn"><i class="bi bi-heart"></i></button>
+                    <span>{{ item.viewCount }}</span>
+                  </div>
+                </div>
+
+                <div class="info">
+                  <span class="title">{{ item.title }}</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </content>
+      </section>
+    </main>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  setup () {
+    return {}
+  },
+  data () {
+    return {
+      categories: [
+        {
+          thumbnailImage: 'https://images.unsplash.com/photo-1657103607361-59df798233ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3042&q=80',
+          title: 'Music',
+          contentCount: '11345',
+          link: '#',
+        },
+        {
+          thumbnailImage: 'https://images.unsplash.com/photo-1669073189025-ce695eff6488?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80',
+          title: 'Video',
+          contentCount: '8112',
+          link: '#',
+        },
+        {
+          thumbnailImage: 'https://images.unsplash.com/photo-1669436024664-dd5df8cbffe2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80',
+          title: 'Architecture',
+          contentCount: '21364',
+          link: '#',
+        },
+        {
+          thumbnailImage: 'https://images.unsplash.com/photo-1669900505298-618fdc4378a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80',
+          title: 'Picture',
+          contentCount: '810364',
+          link: '#',
+        },
+        {
+          thumbnailImage: 'https://images.unsplash.com/photo-1655389884880-a2b418a82849?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80',
+          title: 'Design',
+          contentCount: '39845',
+          link: '#',
+        },
+        {
+          thumbnailImage: 'https://images.unsplash.com/photo-1670199469592-936e6431c870?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1315&q=80',
+          title: 'Extra',
+          contentCount: '387348',
+          link: '#',
+        },
+      ],
+      artworks: [
+        [
+          {
+            id: 0,
+            thumbnailImage: 'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1528&q=80',
+            title: 'Macbook Pro',
+            commentCount: 12,
+            viewCount: 123,
+            link: '#',
+          },
+          {
+            id: 1,
+            thumbnailImage: 'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80',
+            title: 'Working',
+            commentCount: 12,
+            viewCount: 123,
+            link: '#',
+          },
+          {
+            id: 2,
+            thumbnailImage: 'https://images.unsplash.com/photo-1544731612-de7f96afe55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80',
+            title: 'Asus Laptop',
+            commentCount: 12,
+            viewCount: 123,
+            link: '#',
+          },
+        ],
+        [
+          {
+            id: 3,
+            thumbnailImage: 'https://images.unsplash.com/photo-1547394765-185e1e68f34e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80',
+            title: 'Keyboard',
+            commentCount: 12,
+            viewCount: 123,
+            link: '#',
+          },
+          {
+            id: 4,
+            thumbnailImage: 'https://images.unsplash.com/photo-1664575197229-3bbebc281874?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80',
+            title: 'Windows',
+            commentCount: 12,
+            viewCount: 123,
+            link: '#',
+          },
+          {
+            id: 5,
+            thumbnailImage: 'https://images.unsplash.com/photo-1551739440-5dd934d3a94a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1528&q=80',
+            title: 'Google',
+            commentCount: 12,
+            viewCount: 123,
+            link: '#',
+          },
+          {
+            id: 9,
+            thumbnailImage: 'https://images.unsplash.com/photo-1665686310974-2ed1eb7f57ac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80',
+            title: 'Green',
+            commentCount: 12,
+            viewCount: 123,
+            link: '#',
+          },
+        ],
+        [
+          {
+            id: 6,
+            thumbnailImage: 'https://images.unsplash.com/photo-1471897488648-5eae4ac6686b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80',
+            title: 'Green',
+            commentCount: 12,
+            viewCount: 123,
+            link: '#',
+          },
+          {
+            id: 7,
+            thumbnailImage: 'https://images.unsplash.com/photo-1665686307516-1915b9616526?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80',
+            title: 'Surface',
+            commentCount: 12,
+            viewCount: 123,
+            link: '#',
+          },
+          {
+            id: 8,
+            thumbnailImage: 'https://images.unsplash.com/photo-1551739440-5dd934d3a94a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1528&q=80',
+            title: 'Google',
+            commentCount: 12,
+            viewCount: 123,
+            link: '#',
+          },
+          {
+            id: 10,
+            thumbnailImage: 'https://images.unsplash.com/photo-1665686307516-1915b9616526?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80',
+            title: 'Surface',
+            commentCount: 12,
+            viewCount: 123,
+            link: '#',
+          },
+        ],
+      ],
+    }
+  },
+  methods: {
+    artworkLikeBtn(_event: any) {
+      return undefined;
+    }
+  }
+})
+</script>
+
+<style scoped>
+  main {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  main > section {
+    margin: 50px 0;
+  }
+
+  main > section h1 {
+    color: gray;
+    font-size: 40px;
+    margin: 20px 0;
+  }
+
+  #category content .item {
+    margin: 0 20px;
+    color: black;
+    text-decoration: blink;
+  }
+
+  #category content .item .thumbnail-image:hover {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+  }
+
+  #category content .item .thumbnail-image {
+    width: 300px;
+    height: 200px;
+    background-size: cover;
+    border-radius: 20px;
+  }
+
+  #category content .item .info {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  #category content .item .title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  #category content .item .content-count {
+    color: gray;
+    font-size: 16px;
+    font-family: monospace;
+  }
+
+  #artwork content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  #artwork content * {
+    transition: all 500ms ease;
+  }
+
+  #artwork content .column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  #artwork content .item {
+    position: relative;
+    margin: 10px;
+  }
+
+  #artwork content .item a {
+    color: black;
+    text-decoration: blink;
+  }
+
+  #artwork content .item .thumbnail {
+    width: 100%;
+  }
+
+  #artwork content .item img {
+    max-width: 100%;
+    /* width: 100%; */
+    border-radius: 20px;
+    object-fit: scale-down;
+  }
+
+  #artwork content .item:hover img {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+  }
+
+  #artwork content .item .top {
+    width: 100%;
+    height: fit-content;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+  }
+
+  #artwork content .item:hover .top {
+    opacity: 1;
+  }
+
+  #artwork content .item .top > * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #artwork content .item .top button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    border: none;
+    background-color: rgba(0, 0, 0, .5);
+    margin-left: 10px;
+  }
+
+  #artwork content .item .top span {
+    width: fit-content;
+    min-width: 80px;
+    height: 40px;
+    padding: 0 20px;
+    text-align: center;
+    border-radius: 20px;
+    border: none;
+    color: white;
+    background-color: rgba(0, 0, 0, .5);
+    margin-right: 10px;
+  }
+
+  #artwork content .item .title {
+    color: gray;
+    font-size: 20px;
+    padding: 10px;
+  }
+
+  #artwork content .item:hover .title {
+    color: black;
+  }
+</style>
