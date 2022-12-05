@@ -110,6 +110,7 @@
         >
           <div class="thumbnail-image" :style="`background-image: url(${item.thumbnailImage});`"></div>
           <span class="title">{{ item.title }}</span>
+          <span class="author">{{ item.author }}</span>
         </a>
       </HorizontalSlider>
     </section>
@@ -437,5 +438,10 @@ export default defineComponent({
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
   }
+
+  #other-works .item .author {
+    color: gray;
+    font-size: 18px;
+    padding: 3px 10px;
   }
 </style>
