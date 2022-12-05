@@ -37,6 +37,21 @@
           <div class="left">
             <h1>Artworks</h1>
           </div>
+
+          <div class="right">
+            <div class="btn-group">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Sort By
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item active" href="#">Recently</a></li>
+                <li><a class="dropdown-item" href="#">Trending</a></li>
+                <li><a class="dropdown-item" href="#">New</a></li>
+                <li><a class="dropdown-item" href="#">Like</a></li>
+                <li><a class="dropdown-item" href="#">Random</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <content>
@@ -230,6 +245,13 @@ export default defineComponent({
 
   main > section {
     margin: 50px 0;
+  }
+
+  main > section .title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 
   main > section h1 {
