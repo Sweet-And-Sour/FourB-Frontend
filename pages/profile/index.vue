@@ -106,7 +106,7 @@
       </section>
       
       <section id="likes">
-        <h1>Links</h1>
+        <h1>Likes</h1>
 
         <HorizontalSlider
           :item-width="300"
