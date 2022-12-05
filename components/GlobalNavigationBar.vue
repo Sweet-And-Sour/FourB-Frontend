@@ -18,12 +18,9 @@
           </li>
         </ul>
 
-        <form class="d-flex" role="search">
+        <div class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <!-- <button class="btn btn-success" type="submit">
-            <i class="bi bi-search"></i>
-          </button> -->
-        </form>
+        </div>
 
         <div class="dropdown">
           <button class="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
