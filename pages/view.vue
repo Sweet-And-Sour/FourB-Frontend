@@ -97,6 +97,12 @@
               </div>
             </div>
           </div>
+
+          <div class="d-grid mx-auto my-3">
+            <button class="btn btn-outline-secondary" type="button">
+              More
+            </button>
+          </div>
         </content>
       </div>
     </main>
