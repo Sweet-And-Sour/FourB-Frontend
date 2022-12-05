@@ -8,7 +8,7 @@
         <img src="https://images.unsplash.com/photo-1515405295579-ba7b45403062?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1780&q=80" alt="image" />
       </content>
 
-      <a class="author" href="#">
+      <a id="author" href="#">
         <div
           class="avatar"
           :style="`background-image: url(${avatarImage});`"
@@ -86,7 +86,7 @@ export default defineComponent({
     border-radius: 0;
   }
 
-  .author {
+  #author {
     min-height: 120px;
     padding: 20px 0;
     border-radius: 20px;
@@ -100,15 +100,15 @@ export default defineComponent({
     padding-left: 20px;
   }
 
-  .author:hover {
+  #author:hover {
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
   }
 
-  .author > * {
+  #author > * {
     margin-right: 20px;
   }
 
-  .author .avatar {
+  #author .avatar {
     width: 100px;
     height: 100px;
     border: 2px solid lightgray;
@@ -116,25 +116,27 @@ export default defineComponent({
     background-size: cover;
   }
 
-  .author .user {
+  #author .user {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
   }
 
-  .author .username {
+  #author .username {
     font-size: 20px;
     color: black;
   }
 
-  .author .email {
+  #author .email {
     font-size: 18px;
     color: gray;
   }
 
-  .author .bio {
+  #author .bio {
     flex: 1;
     font-size: 16px;
   }
+
+  
 </style>
