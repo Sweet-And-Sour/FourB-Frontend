@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg" :class="`navbar-${navbarColor} bg-${bgColor}`">
     <div class="container-fluid">
-      <a class="navbar-brand logo" href="#">4b</a>
+      <a class="navbar-brand logo" href="/home">4b</a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -82,6 +82,14 @@ export default defineComponent({
 <style scoped>
   .navbar {
     height: 60px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .navbar * {
+    transition: all 300ms ease;
   }
 
   .navbar .container-fluid {
@@ -93,5 +101,20 @@ export default defineComponent({
     font-weight: bold;
     font-style: italic;
     font-size: 20px;
+  }
+
+  @media screen and (max-width: 991px) {
+    .navbar .navbar-collapse.collapsing,
+    .navbar .navbar-collapse.collapse {
+      background-color: rgb(248, 249, 250);
+      position: fixed;
+      top: 50px;
+      left: 0;
+      width: 100%;
+    }
+
+    .navbar .navbar-collapse.collapse {
+      padding: 20px;
+    }
   }
 </style>
