@@ -7,7 +7,7 @@
 
       <content>
         <h2>Show off<br />your own product</h2>
-        <span>Inspirational designs, illustrations, and graphic elements from the world’s best designers.Want more inspiration?</span>
+        <span>Inspirational designs, illustrations, and graphic elements from the world’s best designers. Want more inspiration?</span>
         <div>
           <a class="btn btn-primary" type="button" href="/edit">Upload now</a>
         </div>
