@@ -123,8 +123,11 @@
             <div class="card-body">
               <h5 class="card-title">{{ item.title }}</h5>
               <p class="card-text">{{ item.description }}</p>
-              <div class="d-grid">
-                <a href="#" class="btn btn-outline-primary">More</a>
+              <div class="btn-group full-width" role="group" aria-label="Basic example">
+                <a href="#" class="btn btn-outline-primary" type="button">More</a>
+                <a href="#" class="btn btn-outline-danger del-icon" type="button">
+                  <i class="bi bi-x-lg"></i>
+                </a>
               </div>
             </div>
           </div>
@@ -440,5 +443,17 @@ export default defineComponent({
 
   #likes .slider {
     margin: 40px 0;
+  }
+
+  .btn-group.full-width {
+    width: 100%;
+  }
+
+  .btn-group.full-width a:nth-child(1) {
+    flex: 4;
+  }
+
+  .btn-group.full-width a:nth-child(2) {
+    flex: 1;
   }
 </style>
