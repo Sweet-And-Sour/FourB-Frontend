@@ -25,7 +25,9 @@ export default defineComponent({
     }
   },
   methods: {
-    addHeadingAlert() {},
+    addHeadingAlert() {
+      // TODO: 기능 추가 예정
+    },
     addAlert(message: string, color: string, icon: string | undefined = undefined) {
       const alertDiv = document.createElement('div');
       alertDiv.classList.add('alert', `alert-${color}`, 'alert-dismissible', 'd-flex', 'align-items-center');
