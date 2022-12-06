@@ -379,7 +379,7 @@ export default defineComponent({
     justify-content: space-between;
   }
 
-  footer .right {
+  footer {
     color: gray;
   }
 
