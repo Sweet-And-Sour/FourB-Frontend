@@ -69,7 +69,7 @@ export default defineComponent({
 
   .alert-area.scroll {
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   .alert {
