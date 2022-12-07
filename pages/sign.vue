@@ -153,16 +153,39 @@ export default defineComponent({
 
       return undefined;
     },
-    signIn(_event: any) {
-      const signInForm = document.getElementById('sign-in-form') as HTMLFormElement;
+    getFormData(formId: string, fields: string[]) {
+      const form = document.getElementById(formId) as HTMLFormElement;
 
-      if (!signInForm.checkValidity()) {
-        signInForm.classList.add('was-validated');
+      if (!form.checkValidity()) {
+        form.classList.add('was-validated');
         return undefined;
       }
 
-      const fields = ['username', 'password'];
       const data: any = {};
+
+      for (const fieldName of fields) {
+        const field = document.getElementById(fieldName) as HTMLInputElement;
+        data[fieldName] = field!.value;
+      }
+
+      return data;
+    },
+    resetFields(formId: string) {
+      const form = document.getElementById(formId) as HTMLElement;
+      const inputs = form.getElementsByTagName('input');
+
+      for (let index = 0; index < inputs.length; index++) {
+        inputs[index].value = '';
+      }
+    },
+    signIn(_event: any) {
+      const data = this.getFormData('sign-in-form', ['username', 'password']);
+      if (data === undefined) {
+        return undefined;
+      }
+      
+      const alertArea: any = this.$refs.alertArea;
+      
       const config = {
         headers: {
           accept: '*/*',
@@ -170,20 +193,10 @@ export default defineComponent({
         }
       };
 
-      for (const fieldName of fields) {
-        const field = document.getElementById(fieldName) as HTMLInputElement;
-        data[fieldName] = field!.value;
-      }
-
-      const alertArea: any = this.$refs.alertArea;
-      
       axios
         .post('/api/sign', data, config)
         .then((response) => {
-          for (const fieldName of fields) {
-            const field = document.getElementById(fieldName) as HTMLInputElement;
-            field.value = '';
-          }
+          this.resetFields('sign-in-form');
 
           const accessToken = response.data.access_token;
           Cookies.set('accessToken', accessToken);
@@ -204,15 +217,13 @@ export default defineComponent({
       return undefined;
     },
     signUp(_event: any) {
-      const signUpForm = document.getElementById('sign-up-form') as HTMLFormElement;
-
-      if (!signUpForm.checkValidity()) {
-        signUpForm.classList.add('was-validated');
+      const data = this.getFormData('sign-up-form', ['username', 'email', 'password']);
+      if (data === undefined) {
         return undefined;
       }
 
-      const fields = ['username', 'email', 'password'];
-      const data: any = {};
+      const alertArea: any = this.$refs.alertArea;
+
       const config = {
         headers: {
           accept: '*/*',
@@ -220,9 +231,20 @@ export default defineComponent({
         }
       };
 
-      for (const fieldName of fields) {
-        const field = document.getElementById(fieldName) as HTMLInputElement;
-        data[fieldName] = field!.value;
+      axios
+        .post('/api/user', data, config)
+        .then((response) => {
+          if (response.data.success) {
+            alertArea.addAlert('회원 가입 성공!', 'primary', 'bi-info-circle-fill');
+            this.setMode('sign-in');
+            this.resetFields('sign-up-form');
+          } else {
+            alertArea.addAlert(`회원 가입에 실패했습니다! (${response.data.message})`, 'danger', 'bi-exclamation-triangle-fill');
+          }
+        });
+
+      return undefined;
+    },
       }
 
       const alertArea: any = this.$refs.alertArea;
