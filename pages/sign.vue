@@ -88,13 +88,14 @@
         
         <div>
           <div class="mb-3 field">
-            <label for="email" class="form-label">Email Address</label>
-            <input id="email" type="email" class="form-control" placeholder="alex@email.com">
+            <label for="username" class="form-label">Username</label>
+            <input id="username" type="username" class="form-control" placeholder="username" required>
+            <div class="invalid-feedback">정확한 값을 입력해 주세요!</div>
           </div>
         </div>
 
         <div class="d-grid">
-          <button type="button" class="btn btn-danger">Reset the Password</button>
+          <button type="button" class="btn btn-danger" @click="resetPassword">Reset the Password</button>
           <div class="line-label">OR</div>
           <button type="button" class="btn btn-outline-dark" data-mode="sign-in" @click="setModeEvent">Back to Sign In</button>
         </div>
@@ -148,7 +149,7 @@ export default defineComponent({
       } else if (this.mode === 'sign-up') {
         this.signUp({});
       } else if (this.mode === 'find-pw') {
-        // TODO: 기능 구현중
+        this.resetPassword({});
       }
 
       return undefined;
@@ -245,23 +246,23 @@ export default defineComponent({
 
       return undefined;
     },
+    resetPassword(_event: any) {
+      const data = this.getFormData('find-pw-form', ['username']);
+      if (data === undefined) {
+        return undefined;
       }
 
       const alertArea: any = this.$refs.alertArea;
 
       axios
-        .post('/api/user', data, config)
+        .get(`/api/user/reset/${data.username}`)
         .then((response) => {
           if (response.data.success) {
-            alertArea.addAlert('회원 가입 성공!', 'primary', 'bi-info-circle-fill');
+            alertArea.addAlert('패스워드 초기화 이메일을 전송했습니다. (스팸 메일함도 확인해 보세요)', 'primary', 'bi-info-circle-fill');
             this.setMode('sign-in');
-
-            for (const fieldName of fields) {
-              const field = document.getElementById(fieldName) as HTMLInputElement;
-              field.value = '';
-            }
+            this.resetFields('find-pw-form');
           } else {
-            alertArea.addAlert(`회원 가입에 실패했습니다! (${response.data.message})`, 'danger', 'bi-exclamation-triangle-fill');
+            alertArea.addAlert(response.data.message, 'danger', 'bi-exclamation-triangle-fill');
           }
         });
 
