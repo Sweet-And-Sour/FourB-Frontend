@@ -140,7 +140,9 @@ export default defineComponent({
 
       return undefined;
     },
-    keydownEnterEvent(_event: any) {
+    keydownEnterEvent(event: any) {
+      event.preventDefault();
+
       if (this.mode === 'sign-in') {
         this.signIn({});
       } else if (this.mode === 'sign-up') {
