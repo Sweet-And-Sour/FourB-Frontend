@@ -21,6 +21,8 @@ export default {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap' },
       { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css' },
+      { rel: 'stylesheet', href: '/css/reset.css' },
+      { rel: 'stylesheet', href: '/css/bootstrap.min.css' },
     ],
     script: [
       { src: '/js/popper.min.js' },
@@ -30,8 +32,6 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '~/assets/css/reset.css',
-    '~/assets/css/bootstrap.min.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
