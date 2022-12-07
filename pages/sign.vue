@@ -99,6 +99,10 @@
           <button type="button" class="btn btn-outline-dark" data-mode="sign-in" @click="setModeEvent">Back to Sign In</button>
         </div>
       </form>
+
+      <a id="back-btn" href="javascript:history.back()">
+        <i class="bi bi-arrow-left"></i>
+      </a>
     </main>
   </div>
 </template>
@@ -364,5 +368,18 @@ export default defineComponent({
     display: block;
     border-top: 1px solid lightgray;
     margin-left: 20px;
+  }
+
+  #back-btn {
+    color: gray;
+    text-decoration: blink;
+    font-size: 40px;
+    position: absolute;
+    top: 20px;
+    left: 30px;
+  }
+
+  #back-btn:hover {
+    color: black;
   }
 </style>
