@@ -3,7 +3,9 @@
     <GlobalNavigationBar />
 
     <content>
-      <div class="background" :style="`background-image: url(${profile.backgroundImage});`"></div>
+      <div class="background" :style="`background-image: url(${profile.backgroundImage});`">
+        <button>Change Background Image</button>
+      </div>
 
       <div class="avatar" :style="`background-image: url(${profile.avatarImage});`">
         <button class="btn btn-secondary"><i class="bi bi-emoji-smile"></i></button>
@@ -101,6 +103,24 @@ export default defineComponent({
     width: 100%;
     height: 300px;
     background-size: cover;
+  }
+
+  content .background button {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  content .background:hover button {
+    display: flex;
+    background-color: rgba(0, 0, 0, .6);
   }
 
   content .avatar {
