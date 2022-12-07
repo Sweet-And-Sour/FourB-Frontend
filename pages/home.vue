@@ -101,7 +101,7 @@
     <footer>
       <div class="wrap">
         <div class="left">
-          ⓒ 2022. Team Sweet All Rights Reserved.
+          ⓒ 2022. <i>Team Sweet</i> All Rights Reserved.
         </div>
 
         <div class="right">
