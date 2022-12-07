@@ -110,7 +110,7 @@ export default defineComponent({
     background-size: cover;
     margin: 20px 0;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-    margin-top: -100px;
+    margin-top: -75px;
     position: relative;
   }
 
