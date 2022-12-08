@@ -88,13 +88,14 @@
         
         <div>
           <div class="mb-3 field">
-            <label for="email" class="form-label">Email Address</label>
-            <input id="email" type="email" class="form-control" placeholder="alex@email.com">
+            <label for="username" class="form-label">Username</label>
+            <input id="username" type="username" class="form-control" placeholder="username" required>
+            <div class="invalid-feedback">정확한 값을 입력해 주세요!</div>
           </div>
         </div>
 
         <div class="d-grid">
-          <button type="button" class="btn btn-danger">Reset the Password</button>
+          <button type="button" class="btn btn-danger" @click="resetPassword">Reset the Password</button>
           <div class="line-label">OR</div>
           <button type="button" class="btn btn-outline-dark" data-mode="sign-in" @click="setModeEvent">Back to Sign In</button>
         </div>
@@ -140,27 +141,52 @@ export default defineComponent({
 
       return undefined;
     },
-    keydownEnterEvent(_event: any) {
+    keydownEnterEvent(event: any) {
+      event.preventDefault();
+
       if (this.mode === 'sign-in') {
         this.signIn({});
       } else if (this.mode === 'sign-up') {
         this.signUp({});
       } else if (this.mode === 'find-pw') {
-        // TODO: 기능 구현중
+        this.resetPassword({});
       }
 
       return undefined;
     },
-    signIn(_event: any) {
-      const signInForm = document.getElementById('sign-in-form') as HTMLFormElement;
+    getFormData(formId: string, fields: string[]) {
+      const form = document.getElementById(formId) as HTMLFormElement;
 
-      if (!signInForm.checkValidity()) {
-        signInForm.classList.add('was-validated');
+      if (!form.checkValidity()) {
+        form.classList.add('was-validated');
         return undefined;
       }
 
-      const fields = ['username', 'password'];
       const data: any = {};
+
+      for (const fieldName of fields) {
+        const field = document.getElementById(fieldName) as HTMLInputElement;
+        data[fieldName] = field!.value;
+      }
+
+      return data;
+    },
+    resetFields(formId: string) {
+      const form = document.getElementById(formId) as HTMLElement;
+      const inputs = form.getElementsByTagName('input');
+
+      for (let index = 0; index < inputs.length; index++) {
+        inputs[index].value = '';
+      }
+    },
+    signIn(_event: any) {
+      const data = this.getFormData('sign-in-form', ['username', 'password']);
+      if (data === undefined) {
+        return undefined;
+      }
+      
+      const alertArea: any = this.$refs.alertArea;
+      
       const config = {
         headers: {
           accept: '*/*',
@@ -168,20 +194,10 @@ export default defineComponent({
         }
       };
 
-      for (const fieldName of fields) {
-        const field = document.getElementById(fieldName) as HTMLInputElement;
-        data[fieldName] = field!.value;
-      }
-
-      const alertArea: any = this.$refs.alertArea;
-      
       axios
         .post('/api/sign', data, config)
         .then((response) => {
-          for (const fieldName of fields) {
-            const field = document.getElementById(fieldName) as HTMLInputElement;
-            field.value = '';
-          }
+          this.resetFields('sign-in-form');
 
           const accessToken = response.data.access_token;
           Cookies.set('accessToken', accessToken);
@@ -202,15 +218,13 @@ export default defineComponent({
       return undefined;
     },
     signUp(_event: any) {
-      const signUpForm = document.getElementById('sign-up-form') as HTMLFormElement;
-
-      if (!signUpForm.checkValidity()) {
-        signUpForm.classList.add('was-validated');
+      const data = this.getFormData('sign-up-form', ['username', 'email', 'password']);
+      if (data === undefined) {
         return undefined;
       }
 
-      const fields = ['username', 'email', 'password'];
-      const data: any = {};
+      const alertArea: any = this.$refs.alertArea;
+
       const config = {
         headers: {
           accept: '*/*',
@@ -218,26 +232,37 @@ export default defineComponent({
         }
       };
 
-      for (const fieldName of fields) {
-        const field = document.getElementById(fieldName) as HTMLInputElement;
-        data[fieldName] = field!.value;
-      }
-
-      const alertArea: any = this.$refs.alertArea;
-
       axios
         .post('/api/user', data, config)
         .then((response) => {
           if (response.data.success) {
             alertArea.addAlert('회원 가입 성공!', 'primary', 'bi-info-circle-fill');
             this.setMode('sign-in');
-
-            for (const fieldName of fields) {
-              const field = document.getElementById(fieldName) as HTMLInputElement;
-              field.value = '';
-            }
+            this.resetFields('sign-up-form');
           } else {
             alertArea.addAlert(`회원 가입에 실패했습니다! (${response.data.message})`, 'danger', 'bi-exclamation-triangle-fill');
+          }
+        });
+
+      return undefined;
+    },
+    resetPassword(_event: any) {
+      const data = this.getFormData('find-pw-form', ['username']);
+      if (data === undefined) {
+        return undefined;
+      }
+
+      const alertArea: any = this.$refs.alertArea;
+
+      axios
+        .get(`/api/user/reset/${data.username}`)
+        .then((response) => {
+          if (response.data.success) {
+            alertArea.addAlert('패스워드 초기화 이메일을 전송했습니다. (스팸 메일함도 확인해 보세요)', 'primary', 'bi-info-circle-fill');
+            this.setMode('sign-in');
+            this.resetFields('find-pw-form');
+          } else {
+            alertArea.addAlert(response.data.message, 'danger', 'bi-exclamation-triangle-fill');
           }
         });
 
