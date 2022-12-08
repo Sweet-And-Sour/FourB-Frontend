@@ -27,7 +27,7 @@ export default defineComponent({
     }
   },
   mounted () {
-    this.authCheck();
+    window.addEventListener('focus', () => this.authCheck());
   },
   methods: {
     authCheck ()  {
