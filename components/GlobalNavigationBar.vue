@@ -34,7 +34,7 @@
 
             <li><a v-if="isSign" class="dropdown-item" href="/edit">Create</a></li>
             <li><a v-if="isSign" class="dropdown-item" href="/team">Team</a></li>
-            <li><a v-if="isSign" class="dropdown-item" href="#">Logout</a></li>
+            <li><a v-if="isSign" class="dropdown-item" href="#" @click="logout">Logout</a></li>
           </ul>
         </div>
       </div>
@@ -82,6 +82,14 @@ export default defineComponent({
           link: '/team',
         },
       ],
+    }
+  },
+  methods: {
+    logout (_event: any) {
+      Cookies.remove('accessToken');
+      (this.$refs.authChecker as any).authCheck();
+      
+      return undefined;
     }
   }
 })
