@@ -84,12 +84,25 @@ export default defineComponent({
       ],
     }
   },
+  beforeMount () {
+    this.authPageCheck();
+  },
   methods: {
     logout (_event: any) {
       Cookies.remove('accessToken');
+      
       (this.$refs.authChecker as any).authCheck();
+      this.authPageCheck();
       
       return undefined;
+    },
+    authPageCheck () {
+      if (this.isAuthPage) {
+        if (!Cookies.get('accessToken')) {
+          alert("해당 페이지는 로그인이 필요합니다.");
+          window.location.href = '/sign';
+        }
+      }
     }
   }
 })
