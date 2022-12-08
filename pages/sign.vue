@@ -186,8 +186,8 @@ export default defineComponent({
           const accessToken = response.data.access_token;
           Cookies.set('accessToken', accessToken);
 
-          // Move Page
-          window.location.href = '/';
+          // Move Back
+          history.back();
         })
         .catch((error) => {
           let message = `<br>(알수 없는 오류: ${error})`;
