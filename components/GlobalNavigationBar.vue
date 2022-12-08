@@ -1,5 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg" :class="`navbar-${navbarColor} bg-${bgColor}`">
+    <AuthChecker ref="authChecker" :is-sign.sync="isSign" :username.sync="username" />
+
     <div class="container-fluid">
       <a class="navbar-brand logo" href="/home">4b</a>
 
@@ -24,7 +26,7 @@
 
         <div class="dropdown">
           <button class="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span v-if="isSign">Profile</span>
+            <span v-if="isSign">{{ username }}</span>
             <span v-else>Sign In</span>
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
@@ -41,10 +43,15 @@
 </template>
 
 <script lang="ts">
+import Cookies from 'js-cookie'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
+    isAuthPage: {
+      type: Boolean,
+      default: false,
+    },
     navbarColor: {
       type: String,
       default: 'light'
@@ -60,6 +67,7 @@ export default defineComponent({
   data () {
     return {
       isSign: false,
+      username: '',
       navItems: [
         {
           title: 'Artworks',
