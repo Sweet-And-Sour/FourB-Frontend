@@ -19,28 +19,21 @@ export default defineComponent({
       default: '',
     }
   },
-  setup () {
-    return {}
-  },
-  data () {
-    return {
-    }
-  },
   mounted () {
-    window.addEventListener('focus', () => this.authCheck());
+    setInterval(() => this.authCheck(), 100);
+    setInterval(() => this.refreshToken(), 30000);
   },
   methods: {
     authCheck ()  {
       const token = Cookies.get('accessToken');
 
-      if (token === undefined) {
+      if (this.isSign && token === undefined) {
         this.$emit('update:isSign', false);
-        return;
-      }
 
-      this.$emit('update:isSign', true);
+      } else if (!this.isSign && token !== undefined) {
+        this.$emit('update:isSign', true);
 
-      axios
+        axios
         .get('/api/sign/payload', {
           headers: {
             accept: '*/*',
@@ -53,9 +46,32 @@ export default defineComponent({
         .catch(() => {
           Cookies.remove('accessToken');
           this.$emit('update:isSign', false);
+          this.$emit('update:username', '');
         });
+      }
+    },
+    refreshToken () {
+      const token = Cookies.get('accessToken');
 
-      setTimeout(() => this.authCheck(), 1000 * 30);
+      if (token === undefined) {
+        return;
+      }
+
+      axios
+        .get('/api/sign/refresh', {
+          headers: {
+            accept: '*/*',
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        .then((response) => {
+          Cookies.set('accessToken', response.data.access_token);
+        })
+        .catch(() => {
+          Cookies.remove('accessToken');
+          this.$emit('update:isSign', false);
+          this.$emit('update:username', '');
+        });
     }
   },
 })
