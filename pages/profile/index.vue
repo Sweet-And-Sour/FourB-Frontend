@@ -1,6 +1,6 @@
 <template>
   <div id="profile-page">
-    <GlobalNavigationBar />
+    <GlobalNavigationBar :is-auth-page="true" />
 
     <content>
       <div class="background" :style="`background-image: url(${profile.backgroundImage});`"></div>
