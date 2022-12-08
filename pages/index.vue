@@ -10,6 +10,7 @@
     <main>
       <header>
         <span class="logo">4b</span>
+        <a class="btn btn-outline-success" type="button" href="/home">Go to Home</a>
       </header>
 
       <div class="center-nav">
@@ -171,9 +172,19 @@ export default defineComponent({
   }
 
   header {
+    width: 100%;
     position: fixed;
     top: 15px;
-    left: 20px;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: all;
+  }
+
+  header > * {
+    margin: 0 20px;
   }
 
   .logo {
