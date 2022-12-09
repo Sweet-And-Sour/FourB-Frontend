@@ -199,8 +199,8 @@ export default defineComponent({
           this.resetFields('sign-in-form');
 
           const accessToken = response.data.access_token;
-          (this as any).$accessor.setAccessToken(accessToken);
-          await (this as any).$accessor.UserModule.fetch(data.username);
+          this.$accessor.setAccessToken(accessToken);
+          await this.$accessor.UserModule.fetch(data.username);
 
           // Move Back
           history.back();
