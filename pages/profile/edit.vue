@@ -57,8 +57,9 @@
         </div>
         <div id="emailHelp" class="form-text">SNS나 개인 블로그, 홈페이지 주소 등을 추가해 주세요.</div>
 
-        <div class="d-grid mt-5">
-          <button type="submit" class="btn btn-primary">Save</button>
+        <div class="control mt-5">
+          <button class="btn btn-secondary" type="button">Back</button>
+          <button class="btn btn-primary" type="button">Save</button>
         </div>
       </div>
     </content>
@@ -144,6 +145,18 @@ export default defineComponent({
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  content .control {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  content .control .btn {
+    flex: 1;
   }
 
   #profile-form {
