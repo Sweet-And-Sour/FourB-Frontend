@@ -284,7 +284,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  content {
+content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -300,6 +300,7 @@ export default defineComponent({
   section {
     width: 100%;
     max-width: 1200px;
+    margin: 40px auto;
   }
 
   h1 {
@@ -344,13 +345,35 @@ export default defineComponent({
     color: coral;
   }
 
+   /* @media all and(min-width:320px) {
+      #profile .statistics {
+        width: 20%;
+      }
+    }
+  
+    @media all and(min-width:768px) {
+      #profile .statisticsv {
+        width: 50%;
+      }
+    }
+  
+    @media all and(min-width:1020px) {
+      #wprofile .statistics {
+        width: 100%;
+      }
+  
+    }
+    */
   #profile .statistics {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     margin: 30px 0;
   }
+
+  
 
   #profile .statistics .item {
     width: 250px;
@@ -362,6 +385,7 @@ export default defineComponent({
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 20px;
   }
 
   #profile .statistics .item .number {
@@ -375,6 +399,7 @@ export default defineComponent({
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
     font-size: 25px;
     font-weight: bold;
+    
   }
 
   #profile .statistics .item .title {
