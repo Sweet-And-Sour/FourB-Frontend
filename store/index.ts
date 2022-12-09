@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { getAccessorType, mutationTree, actionTree } from 'typed-vuex';
 import * as UserModule from '~/store/UserModule';
 
@@ -20,6 +21,28 @@ export const actions = actionTree(
   {
     resetTest({ commit }) {
       commit('setData', '');
+    },
+    logout({ commit }) {
+      commit('setAccessToken', '');
+    },
+    refreshToken: async ({ commit, getters }) => {
+      try {
+        const response = await axios
+          .get('/api/sign/refresh', {
+            headers: {
+              'Authorization': `Bearer ${getters.accessToken}`,
+            }
+          });
+        const token = response.data.access_token;
+  
+        if (token) {
+          commit('setAccessToken', token);
+        } else {
+          commit('setAccessToken', '');
+        }
+      } catch (error) {
+          commit('setAccessToken', '');
+      }
     }
   }
 );
