@@ -1,21 +1,18 @@
 import { getAccessorType, mutationTree, actionTree } from 'typed-vuex';
 import * as UserModule from '~/store/UserModule';
 
-export const state = () => ({
-  hello: 'world',
-  accessToken: '',
-});
+export const state = () => ({});
 
 type RootState = ReturnType<typeof state>
 
 export const getters = {
-  test: (state: RootState) => (state.hello),
-  accessToken: (state: RootState) => (state.accessToken),
+  hello: (_state: RootState) => (localStorage.getItem('fourB.hello')),
+  accessToken: (_state: RootState) => (localStorage.getItem('fourB.accessToken')),
 };
 
 export const mutations = mutationTree(state, {
-  setData: (state, newValue: string) => (state.hello = newValue),
-  setAccessToken: (state, newValue: string) => (state.accessToken = newValue),
+  setData: (_state, newValue: string) => (localStorage.setItem('fourB.hello', newValue)),
+  setAccessToken: (_state, newValue: string) => (localStorage.setItem('fourB.accessToken', newValue)),
 });
 
 export const actions = actionTree(

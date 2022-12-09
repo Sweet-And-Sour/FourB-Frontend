@@ -1,32 +1,34 @@
 import { mutationTree, actionTree, getterTree } from 'typed-vuex';
 import axios from 'axios';
 
-export const state = () => ({
-  "username": '',
-  "email": '',
-  "avatar": '',
-  "introduction": '',
-  "created_datetime": '',
-  "site": '',
-  "friends": '',
-  "field": ''
-});
+export const state = () => ({});
 
 export const getters = getterTree(state, {
-  username: (state) => (state.username),
-  email: (state) => (state.email),
-  avatar: (state) => (state.avatar),
-  introduction: (state) => (state.introduction),
-  site: (state) => (state.site),
-  friends: (state) => (state.friends),
-  field: (state) => (state.field),
+  username: (_state) => (localStorage.getItem('fourB.UserModule.username')),
+  email: (_state) => (localStorage.getItem('fourB.UserModule.email')),
+  avatar: (_state) => (localStorage.getItem('fourB.UserModule.avatar')),
+  introduction: (_state) => (localStorage.getItem('fourB.UserModule.introduction')),
+  site: (_state) => (localStorage.getItem('fourB.UserModule.site')),
+  friends: (_state) => (localStorage.getItem('fourB.UserModule.friends')),
+  field: (_state) => (localStorage.getItem('fourB.UserModule.field')),
 });
 
 export const mutations = mutationTree(state, {
-  setData(state, data: any) {
+  setData(_state, data: any) {
+    const keies = [
+      'username',
+      'email',
+      'avatar',
+      'introduction',
+      'created_datetime',
+      'site', 
+      'friends',
+      'field'
+    ]
+
     for (const key in data) {
-      if (key in state) {
-        (state as any)[key] = data[key];
+      if (keies.includes(key)) {
+        localStorage.setItem(`fourB.UserModule.${key}`, data[key]);
       }
     }
   }
@@ -52,8 +54,8 @@ export const actions = actionTree(
         const response = await axios.get(`/api/user/${username}`);
         const data = response.data;
 
-        if (data.success) {
-          commit('setData', data.data);
+        if (data.success && data.data.length >= 1) {
+          commit('setData', data.data[0]);
 
         } else {
           return false;
