@@ -206,7 +206,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  #home-page > section {
+#home-page > section {
     width: 100%;
     position: relative;
     margin: 0 auto;
@@ -387,4 +387,36 @@ export default defineComponent({
     color: gray;
     padding: 0 5px;
   }
+
+    @media screen and (max-width:768px) {
+      #welcome content {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+      }
+
+      #features {
+        flex-direction: column;
+      }
+
+      #features .item {
+        margin-bottom: 50px;
+      }
+
+      #features .description {
+        display: none;
+      }
+    }
+  
+    @media screen and (min-width:768px) {
+    }
+  
+    @media screen and (min-width:1020px) {
+    }
+
+
 </style>
