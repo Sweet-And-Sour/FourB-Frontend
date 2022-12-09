@@ -110,7 +110,6 @@
 
 <script lang="ts">
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -196,11 +195,12 @@ export default defineComponent({
 
       axios
         .post('/api/sign', data, config)
-        .then((response) => {
+        .then(async (response) => {
           this.resetFields('sign-in-form');
 
           const accessToken = response.data.access_token;
-          Cookies.set('accessToken', accessToken);
+          (this as any).$accessor.setAccessToken(accessToken);
+          await (this as any).$accessor.UserModule.fetch(data.username);
 
           // Move Back
           history.back();
