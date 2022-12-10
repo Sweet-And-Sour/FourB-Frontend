@@ -8,11 +8,11 @@ export const getters = getterTree(state, {
   category: (_state) => (localStorage.getItem('fourB.EditModule.category')),
   tags: (_state) => {
     const tags = localStorage.getItem('fourB.EditModule.tags');
-    return tags == null ? null : JSON.parse(tags);
+    return tags == null ? [] : JSON.parse(tags);
   },
   files: (_state) => {
     const files = localStorage.getItem('fourB.EditModule.files');
-    return files == null ? null : JSON.parse(files);
+    return files == null ? {} : JSON.parse(files);
   },
   thumbnail: (_state) => (localStorage.getItem('fourB.EditModule.thumbnail')),
 });
