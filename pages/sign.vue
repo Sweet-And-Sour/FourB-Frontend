@@ -408,7 +408,7 @@ export default defineComponent({
     color: black;
   }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 700px) {
 
       #sign-page .background {
           display: none;
@@ -427,5 +427,5 @@ export default defineComponent({
       height: 80%;
      } 
     }
-    
+
 </style>
