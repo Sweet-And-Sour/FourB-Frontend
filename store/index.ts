@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getAccessorType, mutationTree, actionTree } from 'typed-vuex';
 import * as UserModule from '~/store/UserModule';
+import * as EditModule from '~/store/EditModule';
 
 export const state = () => ({});
 
@@ -54,5 +55,6 @@ export const accessorType = getAccessorType({
   state,
   modules: {
     UserModule,
+    EditModule,
   },
 });
