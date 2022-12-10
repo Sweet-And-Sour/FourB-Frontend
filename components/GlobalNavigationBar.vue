@@ -104,6 +104,8 @@ export default defineComponent({
     logout (_event: any) {
       this.$accessor.logout();
       this.$accessor.UserModule.reset();
+
+      location.reload();
       
       return undefined;
     },
