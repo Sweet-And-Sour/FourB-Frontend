@@ -11,12 +11,6 @@ import * as Quill from 'quill';
 
 export default defineComponent({
   props: {
-    fonts: {
-      type: Array,
-      default () {
-        return ['serif', 'sans-serif', 'monospace'];
-      },
-    }
   },
   setup () {
     return {}
@@ -31,7 +25,7 @@ export default defineComponent({
             highlight: (text: string) => HighlightJS.highlightAuto(text).value,
           },
           'toolbar': [
-            [{ 'font': this.fonts }, { 'size': [] }],
+            [{ 'font': ['serif', 'sans-serif', 'monospace'] }, { 'size': [] }],
             [ 'bold', 'italic', 'underline', 'strike' ],
             [{ 'color': [] }, { 'background': [] }],
             [{ 'script': 'super' }, { 'script': 'sub' }],
