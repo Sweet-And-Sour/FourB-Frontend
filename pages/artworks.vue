@@ -264,7 +264,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  main {
+main {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
@@ -272,6 +272,7 @@ export default defineComponent({
 
   main > section {
     margin: 50px 0;
+    margin-left: 10px;
   }
 
   main > section .title {

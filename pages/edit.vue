@@ -207,10 +207,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  #edit-page > section {
+#edit-page > section {
     width: 100%;
     max-width: 1200px;
     margin: 40px auto;
+    margin-left: 5px;
   }
 
   #edit-page > section h2 {
@@ -238,7 +239,6 @@ export default defineComponent({
   #upload-files .list-group-item:hover {
     background-color: lightgray;
   }
-
   #upload-files .list-group-item a {
     color: black;
     text-decoration: blink;
