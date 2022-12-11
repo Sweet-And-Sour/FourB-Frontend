@@ -174,6 +174,7 @@
 </template>
 
 <script lang="ts">
+import axios from 'axios';
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -336,8 +337,52 @@ export default defineComponent({
       (this.$refs.richEditor as any).uploadFile();
     },
     saveContents (_evant: any) {
-      const richEditor = this.$refs.richEditor as any;
-      richEditor.getHTML();
+      const config = {
+        headers: {
+          accept: '*/*',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.$accessor.accessToken}`
+        }
+      };
+
+      const data = {
+        "username": this.$accessor.UserModule.username,
+        "title": localStorage.getItem('fourB.EditModule.title'),
+        "contents": localStorage.getItem('fourB.EditModule.contents'),
+        "category": localStorage.getItem('fourB.EditModule.category'),
+        "tags": localStorage.getItem('fourB.EditModule.tags'),
+        "thumbnail": localStorage.getItem('fourB.EditModule.thumbnail')
+      };
+
+      console.log(data);
+      console.log('title', localStorage.getItem('fourB.EditModule.title'));
+
+      if (data.title === '') {
+        alert('타이틀은 필수로 입력해야 합니다!');
+        return undefined;
+      } else if ((this.$refs.richEditor as any).editor.root.innerText.length < 10) {
+        alert('컨텐츠 내용은 최소 10자 이상 입력하셔야 합니다!');
+        return undefined;
+      } else if (data.category === '') {
+        alert('카테고리는 필수로 선택해야 합니다!');
+        return undefined;
+      }
+
+      axios
+        .post('/api/content', data, config)
+        .then((response) => {
+          if (response.data.success) {
+            this.$accessor.EditModule.reset();
+            window.location.href = response.data.url;
+
+          } else {
+            alert('컨텐츠가 서버로 전송되었지만 오류가 발생하여 저장되지 못했습니다. (다시 시도해 주세요)');
+          }
+        })
+        .catch((error) => {
+          alert('컨텐츠 저장 중에 알 수 없는 오류가 발생했습니다! (로그인 여부를 확인해 주세요)');
+          console.error(error);
+        });
 
       return undefined;
     },
