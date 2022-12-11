@@ -27,14 +27,14 @@
           >
             <a
               v-for="item in categories"
-              :key="item.title"
+              :key="item.name"
               class="item"
               :href="item.link"
             >
-              <div class="thumbnail-image" :style="`background-image: url(${item.thumbnailImage});`"></div>
+              <div class="thumbnail-image" :style="`background-image: url(${item.thumbnail});`"></div>
               <div class="info">
-                <span class="title">{{ item.title }}</span>
-                <span class="content-count">{{ parseInt(item.contentCount).toLocaleString() }}</span>
+                <span class="title">{{ item.name }}</span>
+                <span class="content-count">{{ parseInt(item.count).toLocaleString() }}</span>
               </div>
            </a>
           </HorizontalSlider>
@@ -109,7 +109,7 @@
             </div>
 
             <ul class="list-group">
-              <a v-for="item in categories" :key="item.title" class="list-group-item" :href="item.link">{{ item.title }}</a>
+              <a v-for="item in categories" :key="item.name" class="list-group-item" :href="item.link">{{ item.name }}</a>
             </ul>
           </div>
           <div class="modal-footer">
@@ -122,6 +122,7 @@
 </template>
 
 <script lang="ts">
+import axios from 'axios';
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -132,39 +133,9 @@ export default defineComponent({
     return {
       categories: [
         {
-          thumbnailImage: 'https://images.unsplash.com/photo-1657103607361-59df798233ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3042&q=80',
-          title: 'Music',
-          contentCount: '11345',
-          link: '#',
-        },
-        {
-          thumbnailImage: 'https://images.unsplash.com/photo-1669073189025-ce695eff6488?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80',
-          title: 'Video',
-          contentCount: '8112',
-          link: '#',
-        },
-        {
-          thumbnailImage: 'https://images.unsplash.com/photo-1669436024664-dd5df8cbffe2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80',
-          title: 'Architecture',
-          contentCount: '21364',
-          link: '#',
-        },
-        {
-          thumbnailImage: 'https://images.unsplash.com/photo-1669900505298-618fdc4378a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80',
-          title: 'Picture',
-          contentCount: '810364',
-          link: '#',
-        },
-        {
-          thumbnailImage: 'https://images.unsplash.com/photo-1655389884880-a2b418a82849?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80',
-          title: 'Design',
-          contentCount: '39845',
-          link: '#',
-        },
-        {
-          thumbnailImage: 'https://images.unsplash.com/photo-1670199469592-936e6431c870?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1315&q=80',
-          title: 'Extra',
-          contentCount: '387348',
+          thumbnail: 'https://images.unsplash.com/photo-1657103607361-59df798233ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3042&q=80',
+          name: 'Music',
+          count: '11345',
           link: '#',
         },
       ],
@@ -255,8 +226,26 @@ export default defineComponent({
       ],
     }
   },
+  mounted () {
+    this.getCategories();
+  },
   methods: {
-    artworkLikeBtn(_event: any) {
+    getCategories () {
+      const config = {
+        headers: {
+          accept: '*/*',
+          'Content-Type': 'application/json'
+        }
+      };
+
+      axios
+        .get('/api/category', config)
+        .then((response) => {
+          this.categories = response.data.results;
+          console.log(this.categories);
+        })
+    },
+    artworkLikeBtn (_event: any) {
       return undefined;
     }
   }
@@ -305,6 +294,7 @@ export default defineComponent({
     width: 300px;
     height: 200px;
     background-size: cover;
+    background-position: center;
     border-radius: 20px;
   }
 
