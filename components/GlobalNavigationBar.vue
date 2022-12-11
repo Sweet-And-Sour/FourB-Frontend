@@ -69,8 +69,8 @@ export default defineComponent({
     return {
       navItems: [
         {
-          title: 'Artworks',
-          link: '/artworks',
+          title: 'Discovery',
+          link: '/discovery',
         },
         {
           title: 'Create',

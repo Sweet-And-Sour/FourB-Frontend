@@ -44,7 +44,7 @@
       <section id="artwork">
         <div class="title">
           <div class="left">
-            <h1>Artworks</h1>
+            <h1>Portfolio</h1>
             <div class="text-muted">
               다양한 작품들을 감상해 보세요!
             </div>
