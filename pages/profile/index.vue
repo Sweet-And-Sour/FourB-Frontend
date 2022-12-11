@@ -3,34 +3,34 @@
     <GlobalNavigationBar :is-auth-page="true" />
 
     <content>
-      <div class="background" :style="`background-image: url(${profile.backgroundImage});`"></div>
+      <div class="background" :style="`background-image: url(${userData.background});`"></div>
       <section id="profile">
         <div class="info">
-          <div class="avatar" :style="`background-image: url(${profile.avatarImage});`"></div>
+          <div class="avatar" :style="`background-image: url(${userData.avatar});`"></div>
 
-          <h2 class="username">{{ profile.username }}</h2>
+          <h2 class="username">{{ userData.username }}</h2>
 
-          <p class="bio">{{ profile.bio }}</p>
+          <p class="bio">{{ userData.introduction }}</p>
 
           <p class="field">
             <i class="bi bi-briefcase-fill"></i>
-            {{ profile.field }}
+            {{ userData.field == '' ? '분야가 설정되지 않았습니다' : userData.field }}
           </p>
 
           <div class="statistics">
             <div class="item">
               <div class="number">100</div>
-              <span class="title">title</span>
+              <span class="title">Works</span>
             </div>
             
             <div class="item">
               <div class="number">100</div>
-              <span class="title">title</span>
+              <span class="title">Likes</span>
             </div>
 
             <div class="item">
               <div class="number">100</div>
-              <span class="title">title</span>
+              <span class="title">Teams</span>
             </div>
           </div>
 
@@ -45,6 +45,10 @@
             <a href="#"><i class="bi bi-google"></i></a>
             <a href="#"><i class="bi bi-discord"></i></a>
           </div>
+        </div>
+
+        <div class="edit-btn">
+          <a class="btn btn-warning" type="button" href="/profile/edit">Edit Profile</a>
         </div>
       </section>
 
@@ -280,6 +284,22 @@ export default defineComponent({
             ],
         };
     },
+    computed: {
+      userData: {
+        get () {
+          return this.$accessor.UserModule;
+        },
+        set () {}
+      },
+    },
+    mounted () {
+
+    },
+    methods: {
+      getUserData () {
+        // axios.get(`/api/user/${}`)
+      }
+    },
 })
 </script>
 
@@ -308,6 +328,12 @@ export default defineComponent({
     padding-bottom: 30px;
     margin: 20px 0;
     border-bottom: 1px solid gray;
+  }
+
+  #profile .edit-btn {
+    position: absolute;
+    top: 80px;
+    right: 10px;
   }
 
   #profile .info {
