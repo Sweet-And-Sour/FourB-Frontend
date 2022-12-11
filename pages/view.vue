@@ -3,31 +3,29 @@
     <GlobalNavigationBar />
 
     <main>
-      <content>
-        <!-- TODO: 서버에서 내용을 받아서 HTML 그대로 삽입합니다!! -->
-        <h1>{{ title }}</h1>
-        <img src="https://images.unsplash.com/photo-1515405295579-ba7b45403062?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1780&q=80" alt="image" />
-        <h2>The standard Lorem Ipsum passage, used since the 1500s</h2>
-        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+      <content class="ql-editor">
+        <h1>{{ content.title }}</h1>
+        <div v-html="content.contents"></div>
       </content>
 
-      <a id="author" href="#">
+      <a v-if="content.username !== ''" id="author" href="/profile?">
         <div
           class="avatar"
-          :style="`background-image: url(${avatarImage});`"
+          :style="`background-image: url(${author.avatar});`"
         ></div>
 
         <div class="user">
-          <span class="username">{{ username }}</span>
-          <span class="email">{{ email }}</span>
+          <span class="username">{{ author.username }}</span>
+          <span class="email">{{ author.email }}</span>
         </div>
 
         <span class="bio">
-          {{ bio }}
+          {{ author.introduction }}
         </span>
       </a>
 
-      <div id="comment-wrap">
+      <!-- DISABLED -->
+      <div v-if="false" id="comment-wrap">
         <div class="statistics">
           <span>
             <i class="bi bi-heart"></i>
@@ -114,7 +112,8 @@
       </div>
     </main>
 
-    <section id="other-works">
+    <!-- DISABLED -->
+    <section v-if="false" id="other-works">
       <h1>Other Works</h1>
 
       <HorizontalSlider :item-width="300" :move-step="2" :item-length="works.length">
@@ -134,6 +133,7 @@
 </template>
 
 <script lang="ts">
+import axios from 'axios';
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -142,11 +142,8 @@ export default defineComponent({
   },
   data () {
     return {
-      title: 'The Paint',
-      avatarImage: 'https://cdn.pixabay.com/photo/2016/01/20/13/05/cat-1151519_1280.jpg',
-      username: 'Username',
-      email: 'example@email',
-      bio: '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."',
+      content: ({} as any),
+      author: ({} as any),
       comments: [
         {
           id: 0,
@@ -226,11 +223,76 @@ export default defineComponent({
       commentText: '',
       maxCommentTextLength: 1000,
     }
-  }
+  },
+  head: {
+    link: [
+      {
+        rel: 'stylesheet',
+        href: '/css/quill.core.css'
+      },
+    ],
+  },
+  mounted () {
+    this.getContents();
+  },
+  methods: {
+    getContents () {
+      const contentId = this.$route.query.id;
+
+      if (contentId === undefined) {
+        alert('컨텐츠가 존재하지 않습니다');
+        history.back();
+      }
+
+      const config = {
+        headers: {
+          accept: '*/*',
+          'Content-Type': 'application/json'
+        }
+      };
+
+      axios
+        .get(`/api/content/${contentId}`, config)
+        .then((response) => {
+          if (response.data.success) {
+            this.content = response.data.content;
+
+            this.getProfile();
+          } else {
+            alert('컨텐츠가 존재하지 않습니다');
+            history.back();
+          }
+        })
+        .catch((error) => {
+          alert(`컨텐츠를 불러오는 과정에서 문제가 발생했습니다 (${error})`);
+          history.back();
+        });
+    },
+    getProfile() {
+      const config = {
+        headers: {
+          accept: '*/*',
+          'Content-Type': 'application/json'
+        }
+      };
+
+      axios
+        .get(`/api/user/${this.content.username}`, config)
+        .then((response) => {
+          if (response.data.success) {
+            this.author = response.data.data[0];
+          }
+        })
+    }
+  },
 })
 </script>
 
-<style scoped>
+<style>
+  .ql-editor * {
+    cursor: initial;
+  }
+
   main {
     width: 100%;
     padding: 0 10px;
@@ -263,8 +325,8 @@ export default defineComponent({
     margin-bottom: 10px;
   }
 
-  main > content > img {
-    border-radius: 20px;
+  main > content img {
+    max-width: 100%;
   }
 
   main > content > img:hover {
