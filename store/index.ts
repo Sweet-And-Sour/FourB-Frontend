@@ -44,6 +44,14 @@ export const actions = actionTree(
       } catch (error) {
           commit('setAccessToken', '');
       }
+    },
+    getCategories: async () => {
+      try {
+        const response = await axios.get('/api/category');
+        return response.data.results || [];
+      } catch (error) {
+        return [];
+      }
     }
   }
 );
