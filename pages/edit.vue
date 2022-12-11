@@ -354,9 +354,6 @@ export default defineComponent({
         "thumbnail": localStorage.getItem('fourB.EditModule.thumbnail')
       };
 
-      console.log(data);
-      console.log('title', localStorage.getItem('fourB.EditModule.title'));
-
       if (data.title === '') {
         alert('타이틀은 필수로 입력해야 합니다!');
         return undefined;
