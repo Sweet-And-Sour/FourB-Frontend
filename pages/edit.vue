@@ -165,7 +165,7 @@
     <section id="control">
       <div class="d-grid">
         <div class="row gap-2 mx-1">
-          <button class="col btn btn-secondary" type="button">Show Preview</button>
+          <!-- <button class="col btn btn-secondary" type="button">Show Preview</button> -->
           <button class="col btn btn-primary" type="button" @click="saveContents">Save Content</button>
         </div>
       </div>
