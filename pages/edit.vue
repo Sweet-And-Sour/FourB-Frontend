@@ -350,7 +350,7 @@ export default defineComponent({
         "title": localStorage.getItem('fourB.EditModule.title'),
         "contents": localStorage.getItem('fourB.EditModule.contents'),
         "category": localStorage.getItem('fourB.EditModule.category'),
-        "tags": localStorage.getItem('fourB.EditModule.tags'),
+        "tags": localStorage.getItem('fourB.EditModule.tags') || '[]',
         "thumbnail": localStorage.getItem('fourB.EditModule.thumbnail')
       };
 
