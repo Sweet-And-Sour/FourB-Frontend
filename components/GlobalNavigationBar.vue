@@ -62,7 +62,7 @@ export default defineComponent({
       isSign: false,
       navItems: [
         {
-          title: 'Artworks',
+          title: 'Works',
           link: '/artworks',
         },
         {
