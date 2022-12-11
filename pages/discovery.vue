@@ -68,7 +68,7 @@
 
         <content>
           <div v-for="(item, index) in portfolio" :key="index" class="item">
-            <a :href="item.link">
+            <a :href="`/view?id=${item.id}`">
               <div class="thumbnail">
                 <div class="thumbnail-image" :style="`background-image: url(${item.thumbnail})`"></div>
 
