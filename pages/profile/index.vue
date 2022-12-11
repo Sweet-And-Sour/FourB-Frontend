@@ -309,6 +309,7 @@ content {
     padding-bottom: 30px;
     margin: 20px 0;
     border-bottom: 1px solid gray;
+        margin-left: 10px;
   }
 
   #profile .info {
@@ -345,29 +346,10 @@ content {
     color: coral;
   }
 
-   /* @media all and(min-width:320px) {
-      #profile .statistics {
-        width: 20%;
-      }
-    }
-  
-    @media all and(min-width:768px) {
-      #profile .statisticsv {
-        width: 50%;
-      }
-    }
-  
-    @media all and(min-width:1020px) {
-      #wprofile .statistics {
-        width: 100%;
-      }
-  
-    }
-    */
   #profile .statistics {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     align-items: center;
     justify-content: center;
     margin: 30px 0;
@@ -376,8 +358,8 @@ content {
   
 
   #profile .statistics .item {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 230px;
     background-color: #D9D9D9;
     border-radius: 20px;
     margin: 0 20px;
@@ -438,8 +420,10 @@ content {
   }
 
   #my-teams .teams a {
+    
     text-decoration: blink;
     display: inline-block;
+    
   }
 
   #my-teams .teams .item {
@@ -481,4 +465,23 @@ content {
   .btn-group.full-width a:nth-child(2) {
     flex: 1;
   }
+
+    @media screen and (max-width:765px) {
+
+      #profile .bio{
+        margin-left: 10px;
+      }
+      #profile .statistics {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        /* flex-wrap: wrap; */
+        align-items: center;
+        justify-content: center;
+      }
+
+    
+    }
 </style>
