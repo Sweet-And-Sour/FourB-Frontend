@@ -354,6 +354,7 @@ export default defineComponent({
     border-radius: 50%;
     overflow: hidden;
     background-size: cover;
+    background-color: white;
     margin: 20px 0;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
   }

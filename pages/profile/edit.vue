@@ -276,6 +276,7 @@ export default defineComponent({
     height: 150px;
     border-radius: 50%;
     background-size: cover;
+    background-color: white;
     margin: 20px 0;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
     margin-top: -75px;
