@@ -64,6 +64,9 @@
             <div class="item">{{ item.teamName }}</div>
           </a>
         </div>
+        <div class="d-grid">
+          <a href="/team/edit" class="btn btn-outline-primary mt-3" type="button">Add New Team</a>
+        </div>
       </section>
 
       <section id="my-works">
