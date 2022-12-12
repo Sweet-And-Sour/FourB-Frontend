@@ -1,6 +1,6 @@
 <template>
   <div id="profile-page">
-    <GlobalNavigationBar :is-auth-page="true" />
+    <GlobalNavigationBar />
 
     <content>
       <div class="background" :style="`background-image: url(${userData.background});`"></div>
@@ -296,7 +296,18 @@ export default defineComponent({
       },
     },
     mounted () {
+      if (this.$route.query.username === undefined) {
+        const accessToken = this.$accessor.accessToken;
 
+        if (accessToken === null || accessToken === '') {
+          alert('이 페이지는 로그인이 필요합니다!');
+          window.location.href = '/sign';
+        } else {
+          //
+        }
+      } else {
+        // 
+      }
     },
     methods: {
       getUserData () {
