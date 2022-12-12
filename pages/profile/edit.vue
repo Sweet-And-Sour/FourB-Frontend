@@ -4,11 +4,11 @@
 
     <content>
       <div class="background" :style="`background-image: url(${profile.backgroundImage});`">
-        <button>Change Background Image</button>
+        <button @click="uploadBackgroundImage">Change Background Image</button>
       </div>
 
       <div class="avatar" :style="`background-image: url(${profile.avatarImage});`">
-        <button class="btn btn-secondary"><i class="bi bi-emoji-smile"></i></button>
+        <button class="btn btn-secondary" @click="uploadAvatarImage"><i class="bi bi-emoji-smile"></i></button>
       </div>
 
       <div id="profile-form">
@@ -111,7 +111,7 @@ export default defineComponent({
               website: "",
           },
           sites: [''],
-      },
+        },
       }
     },
     mounted () {
@@ -132,6 +132,20 @@ export default defineComponent({
       }
     },
     methods: {
+      uploadBackgroundImage (_event: any) {
+        this.uploadFile((fileData: any) => {
+          this.profile.backgroundImage = fileData.url;
+        });
+
+        return undefined;
+      },
+      uploadAvatarImage (_event: any) {
+        this.uploadFile((fileData: any) => {
+          this.profile.avatarImage = fileData.url;
+        });
+
+        return undefined;
+      },
       addSiteBtn (_event: any) {
         if (this.addSiteInput === '') {
           alert('웹 사이트 주소를 정확하게 입력해 주세요');
@@ -221,7 +235,6 @@ export default defineComponent({
           .then((response) => {
             if (response.data.success) {
               alert('회원정보가 수정되었습니다');
-              this.$accessor.UserModule.fetch(data.username);
               window.location.href = '/profile';
             } else {
               alert('회원정보 수정에 실패했습니다! 다시 시도해 주세요');
@@ -233,7 +246,52 @@ export default defineComponent({
           });
 
         return undefined;
-      }
+      },
+      uploadFile (callback: Function) {
+        const input = document.createElement('input') as HTMLInputElement;
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', '*/*');
+        input.click();
+
+        input.addEventListener('change', async () => {
+          const file = input.files![0];
+          const formData = new FormData();
+          formData.append("file", file);
+
+          try {
+            const accessToken = this.$accessor.accessToken;
+
+            const config = {
+              headers: {
+                accept: '*/*',
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${accessToken}`,
+              }
+            };
+
+            const response = await axios.post('/api/file', formData, config);
+
+            if (response.data.success) {
+              const fileUrl = response.data.url;
+
+              const fileData = {
+                filename: file.name,
+                mine: file.type,
+                url: fileUrl,
+                size: file.size,
+              };
+
+              this.$emit('fileChanged', fileData);
+
+              callback(fileData);
+            }
+
+          } catch (error) {
+            alert('파일 업로드 중 오류가 발생했습니다!');
+            console.error(error);
+          }
+        });
+      },
     },
 })
 </script>
