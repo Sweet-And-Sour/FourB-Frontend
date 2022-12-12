@@ -18,6 +18,10 @@
             <div class="item">{{ item.name }}</div>
           </a>
         </div>
+
+        <div class="d-grid">
+          <button class="btn btn-outline-primary mt-3" type="button">Add New Team</button>
+        </div>
       </section>
 
     <section id="find-teams">
