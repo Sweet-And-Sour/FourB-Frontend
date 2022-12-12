@@ -20,7 +20,7 @@
         </div>
 
         <div class="d-grid">
-          <button class="btn btn-outline-primary mt-3" type="button">Add New Team</button>
+          <a href="/team/edit" class="btn btn-outline-primary mt-3" type="button">Add New Team</a>
         </div>
       </section>
 
