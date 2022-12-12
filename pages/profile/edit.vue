@@ -1,6 +1,6 @@
 <template>
   <div id="profile-edit-page">
-    <GlobalNavigationBar />
+    <GlobalNavigationBar :is-auth-page="true" />
 
     <content>
       <div class="background" :style="`background-image: url(${profile.backgroundImage});`">
@@ -13,61 +13,74 @@
 
       <div id="profile-form">
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Username</label>
-          <input id="exampleInputEmail1" type="text" class="form-control" aria-describedby="emailHelp">
-          <div id="emailHelp" class="form-text">사용자 이름을 입력해 주세요.</div>
+          <label for="username-input" class="form-label">Username</label>
+          <input id="username-input" v-model="profile.username" type="text" class="form-control" aria-describedby="emailHelp" disabled>
+          <div id="emailHelp" class="form-text">사용자 이름은 변경할 수 없습니다.</div>
         </div>
 
         <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Email address</label>
-          <input id="exampleInputEmail1" type="email" class="form-control" aria-describedby="emailHelp">
+          <label for="email-input" class="form-label">Email address</label>
+          <input id="email-input" v-model="profile.email" type="email" class="form-control" aria-describedby="emailHelp">
           <div id="emailHelp" class="form-text">이메일 주소를 입력해 주세요.</div>
         </div>
 
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input id="exampleInputPassword1" type="password" class="form-control">
+          <label for="password-input" class="form-label">Password</label>
+          <input id="password-input" v-model="profile.password" type="password" class="form-control">
           <div id="emailHelp" class="form-text">패스워드를 입력해 주세요. (최소 길이 8자 이상, 특수기호 포함)</div>
         </div>
 
         <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label">Bio Messages</label>
-          <textarea id="exampleFormControlTextarea1" class="form-control" rows="3"></textarea>
+          <label for="bio-input" class="form-label">Bio Messages</label>
+          <textarea id="bio-input" v-model="profile.bio" class="form-control" rows="3"></textarea>
           <div id="emailHelp" class="form-text">다른 사람들에게 자기자신을 소개해 보세요!</div>
         </div>
 
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Fields</label>
-          <input id="exampleInputPassword1" type="text" class="form-control">
+          <label for="field-input" class="form-label">Fields</label>
+          <input id="field-input" v-model="profile.field" type="text" class="form-control">
           <div id="emailHelp" class="form-text">어떤 분야에서 활동하고 계신가요? (콤마 ","로 구분해 주세요)</div>
         </div>
 
         <label for="basic-url" class="form-label">Website Address</label>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="www.yourwebsite" aria-label="www.yourwebsite" aria-describedby="button-addon2">
-          <button id="button-addon2" class="btn btn-outline-secondary" type="button">Add</button>
+          <input
+            ref="addSiteInput"
+            v-model="addSiteInput"
+            type="text"
+            class="form-control"
+            placeholder="www.yourwebsite"
+            aria-label="www.yourwebsite"
+            aria-describedby="button-addon2"
+            @keyup.enter="addSiteBtn"
+          >
+          <button id="button-addon2" class="btn btn-outline-secondary" type="button" @click="addSiteBtn">Add</button>
         </div>
 
         <div class="list-group mb-3">
-          <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-            github.com/profile
+          <a
+            v-for="item in profile.sites"
+            :key="item"
+            href="javascript:"
+            class="list-group-item list-group-item-action"
+            @click="() => removeSiteBtn(item)"
+          >
+            {{ item }}
           </a>
-          <a href="#" class="list-group-item list-group-item-action">sweet2022.kro.kr/profile/user</a>
-          <a href="#" class="list-group-item list-group-item-action">github.com/Sweet-And-Sour/FourB-Frontend</a>
         </div>
         <div id="emailHelp" class="form-text">SNS나 개인 블로그, 홈페이지 주소 등을 추가해 주세요.</div>
 
         <div class="mb-3">
           <label class="form-label mt-3">Withdrawal</label>
           <div class="d-grid">
-            <button class="btn btn-outline-danger" type="button">회원 탈퇴 하기</button>
+            <button class="btn btn-outline-danger" type="button" @click="withdrawal">회원 탈퇴 하기</button>
             <div class="form-text">주의! 회원 탈퇴시 개인 정보는 모두 삭제되며 게시물은 자동으로 삭제되지 않습니다.</div>
           </div>
         </div>
 
         <div class="control mt-5">
-          <button class="btn btn-secondary" type="button">Back</button>
-          <button class="btn btn-primary" type="button">Save</button>
+          <button class="btn btn-secondary" type="button" @click="backBtn">Back</button>
+          <button class="btn btn-primary" type="button" @click="saveProfile">Save</button>
         </div>
       </div>
     </content>
@@ -75,6 +88,7 @@
 </template>
 
 <script lang="ts">
+import axios from 'axios';
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -83,19 +97,144 @@ export default defineComponent({
     },
     data () {
       return {
+        addSiteInput: '',
         profile: {
-          backgroundImage: "https://images.unsplash.com/photo-1669940986274-e3a909d20348?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2671&q=80",
-          avatarImage: "https://cdn.pixabay.com/photo/2016/01/20/13/05/cat-1151519_1280.jpg",
-          username: "huahua",
-          bio: "Bio message bio message bio message bio message bio message bio message",
-          field: "Designer, musician",
+          backgroundImage: "/api/static/noimage.png",
+          avatarImage: "/api/static/noimage.png",
+          username: "",
+          email: "",
+          password: "",
+          bio: "",
+          field: "",
           contact: {
-              email: "huahua@fourB",
-              website: "fourb.web2",
+              email: "",
+              website: "",
           },
+          sites: [''],
       },
       }
-    }
+    },
+    mounted () {
+      const accessToken = this.$accessor.accessToken;
+      if (accessToken !== null && accessToken !== '') {
+        this.profile.backgroundImage = this.$accessor.UserModule.background!;
+        this.profile.avatarImage = this.$accessor.UserModule.avatar!;
+        this.profile.username = this.$accessor.UserModule.username!;
+        this.profile.email = this.$accessor.UserModule.email!;
+        this.profile.bio = this.$accessor.UserModule.introduction!;
+        this.profile.field = this.$accessor.UserModule.field!;
+
+        const sites = this.$accessor.UserModule.site!;
+        this.profile.sites = sites === '' ? [] : sites.split(',');
+
+        console.log(this.profile);
+        this.$forceUpdate();
+      }
+    },
+    methods: {
+      addSiteBtn (_event: any) {
+        if (this.addSiteInput === '') {
+          alert('웹 사이트 주소를 정확하게 입력해 주세요');
+          return undefined;
+        } else if (this.profile.sites.includes(this.addSiteInput)) {
+          alert('이미 동일한 웹 사이트 주소가 포함되어 있습니다');
+          return undefined;
+        }
+
+        this.profile.sites.push(this.addSiteInput);
+        this.addSiteInput = '';
+
+        (this.$refs.addSiteInput as HTMLElement).focus();
+
+        return undefined;
+      },
+      removeSiteBtn (site: string) {
+        const index = this.profile.sites.indexOf(site);
+        this.profile.sites.splice(index, 1);
+
+        return undefined;
+      },
+      withdrawal (_event: any) {
+        if (confirm('정말 회원탈퇴 하시겠습니까? (복구 불가능)')) {
+        const config = {
+          data: {
+            username: this.$accessor.UserModule.username
+          },
+          headers: {
+            accept: '*/*',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.$accessor.accessToken}`
+          }
+        };
+
+          axios
+            .delete('/api/user', config)
+            .then((response) => {
+              if (response.data.success) {
+                this.$accessor.setAccessToken('');
+                this.$accessor.UserModule.reset();
+
+                alert('회원탈퇴 처리 되었습니다');
+
+                window.location.href = '/home';
+              } else {
+                alert('회원탈퇴에 실패 했습니다. 다시 시도해 주세요!');
+              }
+            })
+            .catch((error) => {
+              alert('회원탈퇴 도중 알수 없는 문제가 발생했습니다!');
+              console.log(error);
+            });
+        }
+
+        return undefined;
+      },
+      backBtn (_event: any) {
+        history.back();
+        return undefined;
+      },
+      saveProfile (_event: any) {
+        const config = {
+          headers: {
+            accept: '*/*',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.$accessor.accessToken}`
+          }
+        };
+
+        const data: any = {
+          username: this.$accessor.UserModule.username,
+          email: this.profile.email,
+          background: this.profile.backgroundImage,
+          avatar: this.profile.avatarImage,
+          introduction: this.profile.bio,
+          site: this.profile.sites.join(','),
+          field: this.profile.field
+        }
+
+        if (this.profile.password !== "") {
+          data.password = this.profile.password;
+        }
+
+        axios
+          .patch('/api/user', data, config)
+          .then((response) => {
+            if (response.data.success) {
+              alert('회원정보가 수정되었습니다');
+              this.$accessor.UserModule.fetch(data.username);
+              window.location.href = '/profile';
+            } else {
+              alert('회원정보 수정에 실패했습니다! 다시 시도해 주세요');
+            }
+          })
+          .catch((error) => {
+            alert('회원정보 수정 중에 알수없는 오류가 발생했습니다!');
+            console.error(error);
+          });
+
+        return undefined;
+      }
+    },
 })
 </script>
 
