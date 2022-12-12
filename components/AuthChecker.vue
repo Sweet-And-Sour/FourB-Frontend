@@ -35,6 +35,7 @@ export default defineComponent({
     refreshToken () {
       if (this.$accessor.accessToken != null && this.$accessor.accessToken !== '') {
         this.$accessor.refreshToken();
+        this.$accessor.UserModule.fetch(this.$accessor.UserModule.username || '');
       }
     }
   },
