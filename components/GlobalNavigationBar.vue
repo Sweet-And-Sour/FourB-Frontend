@@ -30,12 +30,15 @@
             <span v-else>Sign In</span>
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="/discovery">Discover</a></li>
+            <li><a class="dropdown-item" href="/edit">Create</a></li>
+            <li><a class="dropdown-item" href="/team">Team</a></li>
+            
+            <li><hr class="dropdown-divider"></li>
+
             <li v-if="!isSign"><a class="dropdown-item" href="/sign">Sign In / Up</a></li>
 
             <li v-if="isSign"><a class="dropdown-item" href="/profile">Profile</a></li>
-            <li v-if="isSign"><a class="dropdown-item" href="/edit">Create</a></li>
-            <li v-if="isSign"><a class="dropdown-item" href="/team">Team</a></li>
-            <li v-if="isSign"><hr class="dropdown-divider"></li>
             <li v-if="isSign"><a class="dropdown-item" href="#" @click="logout">Logout</a></li>
           </ul>
         </div>
