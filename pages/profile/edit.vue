@@ -57,6 +57,14 @@
         </div>
         <div id="emailHelp" class="form-text">SNS나 개인 블로그, 홈페이지 주소 등을 추가해 주세요.</div>
 
+        <div class="mb-3">
+          <label class="form-label mt-3">Withdrawal</label>
+          <div class="d-grid">
+            <button class="btn btn-outline-danger" type="button">회원 탈퇴 하기</button>
+            <div class="form-text">주의! 회원 탈퇴시 개인 정보는 모두 삭제되며 게시물은 자동으로 삭제되지 않습니다.</div>
+          </div>
+        </div>
+
         <div class="control mt-5">
           <button class="btn btn-secondary" type="button">Back</button>
           <button class="btn btn-primary" type="button">Save</button>
