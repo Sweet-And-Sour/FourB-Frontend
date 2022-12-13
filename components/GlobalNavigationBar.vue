@@ -88,14 +88,14 @@ export default defineComponent({
   },
   computed: {
     isSign: {
-      get () {
-        return this.$accessor.accessToken != null && this.$accessor.accessToken !== '';
+      get (): boolean {
+        return (this.$accessor as any).accessToken != null && (this.$accessor as any).accessToken !== '';
       },
       set () {}
     },
     username: {
-      get () {
-        return this.$accessor.UserModule.username;
+      get (): string {
+        return (this.$accessor as any).UserModule.username;
       },
       set () {}
     }

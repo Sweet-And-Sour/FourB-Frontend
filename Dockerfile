@@ -7,4 +7,6 @@ WORKDIR ${FRONTEND_WORKDIR}
 COPY . .
 
 RUN yarn
-CMD ["yarn", "dev"]
+# CMD ["yarn", "dev"]
+CMD ["yarn", "generate"]
+CMD ["yarn", "start"]

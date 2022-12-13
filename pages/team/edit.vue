@@ -111,6 +111,9 @@
 import axios from 'axios';
 import { defineComponent } from 'vue'
 
+declare const bootstrap: any;
+
+
 export default defineComponent({
     setup() {
         return {};
@@ -138,6 +141,7 @@ export default defineComponent({
     mounted () {
       this.isNewTeam = this.$route.query.username === undefined;
       if (this.isNewTeam) {
+        
         new bootstrap.Modal(this.$refs.newTeamModal, {}).show();
       }
     },

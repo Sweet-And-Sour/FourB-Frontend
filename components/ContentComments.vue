@@ -120,8 +120,8 @@ export default defineComponent({
   },
   computed: {
     username: {
-      get () {
-        return this.$accessor.UserModule.username || '';
+      get (): string {
+        return (this.$accessor as any).UserModule.username || '';
       },
       set () {}
     }
