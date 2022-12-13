@@ -417,6 +417,4 @@ export default defineComponent({
   
     @media screen and (min-width:1020px) {
     }
-
-
 </style>
