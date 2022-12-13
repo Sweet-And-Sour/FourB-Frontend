@@ -3,7 +3,7 @@
     <GlobalNavigationBar />
 
     <div class="background">
-      <h2>Category</h2>
+      <h2>{{ categoryName }}</h2>
     </div>
 
     <main>
@@ -43,6 +43,7 @@ export default defineComponent({
   },
   data () {
     return {
+      categoryName: '',
       contentPage: 0,
       contents: [
         {
@@ -55,10 +56,10 @@ export default defineComponent({
     }
   },
   mounted () {
-    const categoryName = this.$route.query.name;
+    this.categoryName = this.$route.query.name as string;
     this.contents = [];
 
-    if (categoryName === undefined) {
+    if (this.categoryName === undefined) {
       alert('존재하지 않는 카테고리 입니다!');
       history.back();
     } else {
@@ -70,10 +71,8 @@ export default defineComponent({
       return undefined;
     },
     getContents (_event: any) {
-      const categoryName = this.$route.query.name;
-
       const filter = JSON.stringify({
-        category: categoryName,
+        category: this.categoryName,
       });
 
       axios
