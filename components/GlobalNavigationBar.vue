@@ -125,7 +125,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  .navbar {
+.navbar {
     height: 60px;
     position: -webkit-sticky;
     position: sticky;
@@ -148,7 +148,16 @@ export default defineComponent({
     font-size: 20px;
   }
 
-  @media screen and (max-width: 991px) {
+  @media screen and (max-width: 768px) {
+
+    #navbarToggler .dropdown {
+      float: left;
+    }
+
+    #navbarToggler .dropdown ul {
+      left: 0;
+    }
+
     .navbar .navbar-collapse.collapsing,
     .navbar .navbar-collapse.collapse {
       background-color: rgb(248, 249, 250);

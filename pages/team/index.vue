@@ -28,7 +28,7 @@
       <h1>Find the Teams</h1>
 
       <div class="controller">
-        <button class="btn ms-2" :class="(currentSelectedField == '' ? 'btn-secondary' : 'btn-outline-secondary')">
+        <button class="btn ms-2 mb-3" :class="(currentSelectedField == '' ? 'btn-secondary' : 'btn-outline-secondary')">
           <i class="bi bi-archive"></i>
           All
         </button>
@@ -37,7 +37,7 @@
           v-for="item in fields"
           :key="item.name"
           type="button"
-          class="btn ms-2"
+          class="btn ms-2 mb-3"
           :class="(currentSelectedField == item.name ? 'btn-secondary' : 'btn-outline-secondary')"
         >
           <i class="bi" :class="`${item.icon}`"></i>

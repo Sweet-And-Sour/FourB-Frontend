@@ -318,7 +318,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  content {
+content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -334,6 +334,7 @@ export default defineComponent({
   section {
     width: 100%;
     max-width: 1200px;
+    margin: 40px auto;
   }
 
   h1 {
@@ -342,6 +343,7 @@ export default defineComponent({
     padding-bottom: 30px;
     margin: 20px 0;
     border-bottom: 1px solid gray;
+        margin-left: 10px;
   }
 
   #profile .edit-btn {
@@ -388,14 +390,17 @@ export default defineComponent({
   #profile .statistics {
     display: flex;
     flex-direction: row;
+    /* flex-wrap: wrap; */
     align-items: center;
     justify-content: center;
     margin: 30px 0;
   }
 
+  
+
   #profile .statistics .item {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 230px;
     background-color: #D9D9D9;
     border-radius: 20px;
     margin: 0 20px;
@@ -403,6 +408,7 @@ export default defineComponent({
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 20px;
   }
 
   #profile .statistics .item .number {
@@ -416,6 +422,7 @@ export default defineComponent({
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
     font-size: 25px;
     font-weight: bold;
+    
   }
 
   #profile .statistics .item .title {
@@ -454,8 +461,10 @@ export default defineComponent({
   }
 
   #my-teams .teams a {
+    
     text-decoration: blink;
     display: inline-block;
+    
   }
 
   #my-teams .teams .item {
@@ -497,4 +506,23 @@ export default defineComponent({
   .btn-group.full-width a:nth-child(2) {
     flex: 1;
   }
+
+    @media screen and (max-width:765px) {
+
+      #profile .bio{
+        margin-left: 10px;
+      }
+      #profile .statistics {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        /* flex-wrap: wrap; */
+        align-items: center;
+        justify-content: center;
+      }
+
+    
+    }
 </style>

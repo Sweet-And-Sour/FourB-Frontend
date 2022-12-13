@@ -273,7 +273,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  @keyframes slide-in-main {
+@keyframes slide-in-main {
     from { transform: translateX(-100%); }
     80% { transform: translateX(5%); }
     to { transform: translateX(0); }
@@ -407,4 +407,25 @@ export default defineComponent({
   #back-btn:hover {
     color: black;
   }
+
+    @media screen and (max-width: 700px) {
+
+      #sign-page .background {
+          display: none;
+        }
+      
+     #sign-page main {
+      border-radius: 0px;
+      width: 100%;
+     }
+
+    #sign-page h2{
+      margin-top: 30px;
+    }
+
+     #sign-page form{
+      height: 80%;
+     } 
+    }
+
 </style>
