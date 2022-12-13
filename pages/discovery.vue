@@ -371,7 +371,6 @@ export default defineComponent({
     margin: 40px auto;
   }
 
-
   @media screen and (max-width: 600px) {}
 
   @media screen and (max-width: 765px) {
