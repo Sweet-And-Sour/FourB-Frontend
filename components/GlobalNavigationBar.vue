@@ -1,5 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg" :class="`navbar-${navbarColor} bg-${bgColor}`">
+    <AuthChecker />
+
     <div class="container-fluid">
       <a class="navbar-brand logo" href="/home">4b</a>
 
@@ -24,15 +26,20 @@
 
         <div class="dropdown">
           <button class="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span v-if="isSign">Profile</span>
+            <span v-if="isSign">{{ username }}</span>
             <span v-else>Sign In</span>
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a v-if="!isSign" class="dropdown-item" href="/sign">Sign In / Up</a></li>
+            <li><a class="dropdown-item" href="/discovery">Discover</a></li>
+            <li><a class="dropdown-item" href="/edit">Create</a></li>
+            <li><a class="dropdown-item" href="/team">Team</a></li>
+            
+            <li><hr class="dropdown-divider"></li>
 
-            <li><a v-if="isSign" class="dropdown-item" href="/edit">Create</a></li>
-            <li><a v-if="isSign" class="dropdown-item" href="/team">Team</a></li>
-            <li><a v-if="isSign" class="dropdown-item" href="#">Logout</a></li>
+            <li v-if="!isSign"><a class="dropdown-item" href="/sign">Sign In / Up</a></li>
+
+            <li v-if="isSign"><a class="dropdown-item" href="/profile">Profile</a></li>
+            <li v-if="isSign"><a class="dropdown-item" href="#" @click="logout">Logout</a></li>
           </ul>
         </div>
       </div>
@@ -45,6 +52,10 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
+    isAuthPage: {
+      type: Boolean,
+      default: false,
+    },
     navbarColor: {
       type: String,
       default: 'light'
@@ -59,11 +70,10 @@ export default defineComponent({
   },
   data () {
     return {
-      isSign: false,
       navItems: [
         {
-          title: 'Artworks',
-          link: '/artworks',
+          title: 'Discovery',
+          link: '/discovery',
         },
         {
           title: 'Create',
@@ -75,7 +85,42 @@ export default defineComponent({
         },
       ],
     }
-  }
+  },
+  computed: {
+    isSign: {
+      get () {
+        return this.$accessor.accessToken != null && this.$accessor.accessToken !== '';
+      },
+      set () {}
+    },
+    username: {
+      get () {
+        return this.$accessor.UserModule.username;
+      },
+      set () {}
+    }
+  },
+  beforeMount () {
+    this.authPageCheck();
+  },
+  methods: {
+    logout (_event: any) {
+      this.$accessor.logout();
+      this.$accessor.UserModule.reset();
+
+      location.reload();
+      
+      return undefined;
+    },
+    authPageCheck () {
+      if (this.isAuthPage) {
+        if (this.$accessor.accessToken == null || this.$accessor.accessToken === '') {
+          alert("해당 페이지는 로그인이 필요합니다.");
+          window.location.href = '/sign';
+        }
+      }
+    }
+  },
 })
 </script>
 

@@ -110,7 +110,6 @@
 
 <script lang="ts">
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -196,14 +195,15 @@ export default defineComponent({
 
       axios
         .post('/api/sign', data, config)
-        .then((response) => {
+        .then(async (response) => {
           this.resetFields('sign-in-form');
 
           const accessToken = response.data.access_token;
-          Cookies.set('accessToken', accessToken);
+          this.$accessor.setAccessToken(accessToken);
+          await this.$accessor.UserModule.fetch(data.username);
 
-          // Move Page
-          window.location.href = '/';
+          // Move Back
+          history.back();
         })
         .catch((error) => {
           let message = `<br>(알수 없는 오류: ${error})`;

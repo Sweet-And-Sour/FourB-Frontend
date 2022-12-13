@@ -3,118 +3,34 @@
     <GlobalNavigationBar />
 
     <main>
-      <content>
-        <!-- TODO: 서버에서 내용을 받아서 HTML 그대로 삽입합니다!! -->
-        <h1>{{ title }}</h1>
-        <img src="https://images.unsplash.com/photo-1515405295579-ba7b45403062?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1780&q=80" alt="image" />
-        <h2>The standard Lorem Ipsum passage, used since the 1500s</h2>
-        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+      <content class="ql-editor">
+        <h1>{{ content.title }}</h1>
+        <div v-html="content.contents"></div>
       </content>
 
-      <a id="author" href="#">
+      <a v-if="content.username !== ''" id="author" href="/profile?">
         <div
           class="avatar"
-          :style="`background-image: url(${avatarImage});`"
+          :style="`background-image: url(${author.avatar});`"
         ></div>
 
         <div class="user">
-          <span class="username">{{ username }}</span>
-          <span class="email">{{ email }}</span>
+          <span class="username">{{ author.username }}</span>
+          <span class="email">{{ author.email }}</span>
         </div>
 
         <span class="bio">
-          {{ bio }}
+          {{ author.introduction }}
         </span>
       </a>
-
-      <div id="comment-wrap">
-        <div class="statistics">
-          <span>
-            <i class="bi bi-heart"></i>
-            62
-          </span>
-
-          <span>
-            <i class="bi bi-chat-dots"></i>
-            {{ comments.length }}
-          </span>
-        </div>
-
-        <div class="new-comment">
-          <div class="avatar">
-            <i class="bi bi-person-circle"></i>
-          </div>
-
-          <div class="input">
-            <div class="mb-3">
-              <textarea
-                id="exampleFormControlTextarea1"
-                v-model="commentText"
-                class="form-control"
-                rows="3"
-                placeholder="댓글을 입력하세요."
-                :maxlength="maxCommentTextLength"
-              ></textarea>
-              <span id="input-commnet-length">{{ commentText.length }} / {{ maxCommentTextLength }}</span>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="btn-wrap">
-          <button id="add-comment-btn" class="btn btn-secondary">Add Comment</button>
-        </div>
-
-        <content id="comments">
-          <div
-            v-for="item in comments"
-            :key="item.id"
-            class="item"
-          >
-            <div class="avatar">
-              <i class="bi bi-person-circle"></i>
-            </div>
-
-            <div>
-              <div>
-                <span class="username">{{ item.username }}</span>
-                <span class="created">1 day ago</span>
-              </div>
-
-              <div class="content">{{ item.content }}</div>
-
-              <div class="btn-group">
-                <div>
-                  <button class="btn likes" type="button">
-                    <i class="bi bi-hand-thumbs-up"></i>
-                    {{ item.likes }}
-                  </button>
-                </div>
-
-                <div>
-                  <button class="btn unlikes" type="button">
-                    <i class="bi bi-hand-thumbs-down"></i>
-                    {{ item.unlikes }}
-                  </button>
-                </div>
-
-                <div>
-                  <button href="#" class="btn reply-to" type="button">Reply to</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="d-grid mx-auto my-3">
-            <button class="btn btn-outline-secondary" type="button">
-              More
-            </button>
-          </div>
-        </content>
-      </div>
     </main>
 
-    <section id="other-works">
+    <section id="comments">
+      <ContentComments :content-id="contentId" />
+    </section>
+
+    <!-- DISABLED -->
+    <section v-if="false" id="other-works">
       <h1>Other Works</h1>
 
       <HorizontalSlider :item-width="300" :move-step="2" :item-length="works.length">
@@ -134,6 +50,7 @@
 </template>
 
 <script lang="ts">
+import axios from 'axios';
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -142,29 +59,8 @@ export default defineComponent({
   },
   data () {
     return {
-      title: 'The Paint',
-      avatarImage: 'https://cdn.pixabay.com/photo/2016/01/20/13/05/cat-1151519_1280.jpg',
-      username: 'Username',
-      email: 'example@email',
-      bio: '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."',
-      comments: [
-        {
-          id: 0,
-          username: 'Vinh Bui',
-          content: 'Lorem ipsum dolor sit amet, vince adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-          createdDataTime: '',
-          likes: 0,
-          unlikes: 0,
-        },
-        {
-          id: 1,
-          username: 'Vinh Bui',
-          content: 'Lorem ipsum dolor sit amet, vince adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-          createdDataTime: '',
-          likes: 0,
-          unlikes: 0,
-        },
-      ],
+      content: ({} as any),
+      author: ({} as any),
       works: [
           {
               id: 0,
@@ -226,11 +122,88 @@ export default defineComponent({
       commentText: '',
       maxCommentTextLength: 1000,
     }
-  }
+  },
+  head: {
+    link: [
+      {
+        rel: 'stylesheet',
+        href: '/css/quill.core.css'
+      },
+    ],
+  },
+  computed: {
+    contentId: {
+      get () {
+        return parseInt(this.$route.query.id as string);
+      },
+      set () {}
+    }
+  },
+  mounted () {
+    this.getContents();
+  },
+  methods: {
+    getContents () {
+      if (this.contentId === undefined) {
+        alert('컨텐츠가 존재하지 않습니다');
+        history.back();
+      }
+
+      const config = {
+        headers: {
+          accept: '*/*',
+          'Content-Type': 'application/json'
+        }
+      };
+
+      axios
+        .get(`/api/content/${this.contentId}`, config)
+        .then((response) => {
+          if (response.data.success) {
+            this.content = response.data.content;
+
+            this.getProfile();
+          } else {
+            alert('컨텐츠가 존재하지 않습니다');
+            history.back();
+          }
+        })
+        .catch((error) => {
+          alert(`컨텐츠를 불러오는 과정에서 문제가 발생했습니다 (${error})`);
+          history.back();
+        });
+    },
+    getProfile() {
+      const config = {
+        headers: {
+          accept: '*/*',
+          'Content-Type': 'application/json'
+        }
+      };
+
+      axios
+        .get(`/api/user/${this.content.username}`, config)
+        .then((response) => {
+          if (response.data.success) {
+            this.author = response.data.data[0];
+          }
+        })
+    }
+  },
 })
 </script>
 
-<style scoped>
+<style>
+  .ql-editor * {
+    cursor: initial;
+  }
+
+  section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
   main {
     width: 100%;
     padding: 0 10px;
@@ -263,8 +236,8 @@ export default defineComponent({
     margin-bottom: 10px;
   }
 
-  main > content > img {
-    border-radius: 20px;
+  main > content img {
+    max-width: 100%;
   }
 
   main > content > img:hover {
@@ -321,99 +294,6 @@ export default defineComponent({
   #author .bio {
     flex: 1;
     font-size: 16px;
-  }
-
-  #comment-wrap  {
-    width: 100%;
-    background-color: #F1F3F6;
-    border-radius: 20px;
-    margin: 40px 0;
-    padding: 20px;
-  }
-
-  #comment-wrap .statistics {
-    height: 50px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-  }
-
-  #comment-wrap .statistics span {
-    font-size: 20px;
-    padding: 0 10px;
-    color: gray;
-  }
-
-  #comment-wrap .statistics i {
-    margin-right: 5px;
-  }
-
-  #comment-wrap .new-comment {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
-
-  #comment-wrap .new-comment .avatar {
-    font-size: 35px;
-    margin-right: 20px;
-    color: gray;
-  }
-
-  #comment-wrap .new-comment .input {
-    width: 100%;
-  }
-
-  #input-commnet-length {
-    float: right;
-    font-size: 18px;
-    color: gray;
-  }
-
-   #comment-wrap > .btn-wrap {
-    text-align: right;
-    margin-top: 20px;
-  }
-
-  #comments {
-    margin-top: 20px;
-  }
-
-  #comments .item {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    margin: 20px 0;
-  }
-
-  #comments .avatar {
-    font-size: 35px;
-    margin-right: 20px;
-    color: gray;
-  }
-
-  #comments .username {
-    font-size: 20px;
-    color: gray;
-  }
-
-  #comments .created {
-    font-size: 16px;
-    color: lightslategray;
-    padding: 0 10px;
-  }
-
-  #comments .content {
-    font-size: 20px;
-    margin: 10px 0;
-  }
-
-  #comments .btn-group .btn {
-    font-size: 18px;
-    margin: 0;
   }
 
   #other-works {

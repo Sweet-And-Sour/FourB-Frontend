@@ -13,33 +13,34 @@
 
       <div id="profile-form">
         <div class="mb-3">
-          <label for="username-input" class="form-label">Username</label>
-          <input id="username-input" v-model="profile.username" type="text" class="form-control" aria-describedby="emailHelp" disabled>
-          <div id="emailHelp" class="form-text">사용자 이름은 변경할 수 없습니다.</div>
+          <label for="username-input" class="form-label">Team name</label>
+          <input v-if="isNewTeam" id="username-input" v-model="profile.username" type="text" class="form-control" aria-describedby="emailHelp">
+          <input v-if="!isNewTeam" id="username-input" v-model="profile.username" type="text" class="form-control" aria-describedby="emailHelp" disabled>
+          <div id="emailHelp" class="form-text">팀 이름을 입력해 주세요.</div>
         </div>
 
         <div class="mb-3">
-          <label for="email-input" class="form-label">Email address</label>
+          <label for="email-input" class="form-label">Team Email address</label>
           <input id="email-input" v-model="profile.email" type="email" class="form-control" aria-describedby="emailHelp">
-          <div id="emailHelp" class="form-text">이메일 주소를 입력해 주세요.</div>
+          <div id="emailHelp" class="form-text">팀 이메일 주소를 입력해 주세요.</div>
         </div>
 
         <div class="mb-3">
           <label for="password-input" class="form-label">Password</label>
           <input id="password-input" v-model="profile.password" type="password" class="form-control">
-          <div id="emailHelp" class="form-text">패스워드를 입력해 주세요. (최소 길이 8자 이상, 특수기호 포함)</div>
+          <div id="emailHelp" class="form-text">팀 공용 패스워드를 입력해 주세요. (최소 길이 8자 이상, 특수기호 포함)</div>
         </div>
 
         <div class="mb-3">
           <label for="bio-input" class="form-label">Bio Messages</label>
           <textarea id="bio-input" v-model="profile.bio" class="form-control" rows="3"></textarea>
-          <div id="emailHelp" class="form-text">다른 사람들에게 자기자신을 소개해 보세요!</div>
+          <div id="emailHelp" class="form-text">팀 소개 문구를 적어주세요!</div>
         </div>
 
         <div class="mb-3">
           <label for="field-input" class="form-label">Fields</label>
           <input id="field-input" v-model="profile.field" type="text" class="form-control">
-          <div id="emailHelp" class="form-text">어떤 분야에서 활동하고 계신가요? (콤마 ","로 구분해 주세요)</div>
+          <div id="emailHelp" class="form-text">팀의 주요 활동 분야가 뭔가요? (콤마 ","로 구분해 주세요)</div>
         </div>
 
         <label for="basic-url" class="form-label">Website Address</label>
@@ -51,10 +52,10 @@
             class="form-control"
             placeholder="www.yourwebsite"
             aria-label="www.yourwebsite"
-            aria-describedby="button-addon2"
+            aria-describedby="sites-input"
             @keyup.enter="addSiteBtn"
           >
-          <button id="button-addon2" class="btn btn-outline-secondary" type="button" @click="addSiteBtn">Add</button>
+          <button id="sites-input" class="btn btn-outline-secondary" type="button" @click="addSiteBtn">Add</button>
         </div>
 
         <div class="list-group mb-3">
@@ -68,13 +69,13 @@
             {{ item }}
           </a>
         </div>
-        <div id="emailHelp" class="form-text">SNS나 개인 블로그, 홈페이지 주소 등을 추가해 주세요.</div>
+        <div class="form-text">SNS나 팀 블로그, 팀 홈페이지 주소 등을 추가해 주세요.</div>
 
-        <div class="mb-3">
+        <div v-if="!isNewTeam" class="mb-3">
           <label class="form-label mt-3">Withdrawal</label>
           <div class="d-grid">
-            <button class="btn btn-outline-danger" type="button" @click="withdrawal">회원 탈퇴 하기</button>
-            <div class="form-text">주의! 회원 탈퇴시 개인 정보는 모두 삭제되며 게시물은 자동으로 삭제되지 않습니다.</div>
+            <button class="btn btn-outline-danger" type="button">팀 삭제 하기</button>
+            <div class="form-text">주의! 팀 삭제시 팀 유저 데이터가 삭제되며 게시물은 자동으로 삭제되지 않습니다.</div>
           </div>
         </div>
 
@@ -84,6 +85,25 @@
         </div>
       </div>
     </content>
+
+    <!-- New Team Modal -->
+    <div id="newTeamModal" ref="newTeamModal" class="modal fade" tabindex="-1" aria-labelledby="newTeamModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 id="newTeamModalLabel" class="modal-title fs-5">New Team</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>새로운 팀을 생성합니다.</p>
+            <p><b>다른 사람들과 함께 작업하고 작업물을 공유해 보세요!</b></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -97,10 +117,11 @@ export default defineComponent({
     },
     data () {
       return {
+        isNewTeam: false,
         addSiteInput: '',
         profile: {
-          backgroundImage: "/api/static/noimage.png",
-          avatarImage: "/api/static/noimage.png",
+          backgroundImage: "/api/static/default_background.jpeg",
+          avatarImage: "/api/static/default_avatar.jpeg",
           username: "",
           email: "",
           password: "",
@@ -110,25 +131,14 @@ export default defineComponent({
               email: "",
               website: "",
           },
-          sites: [''],
+          sites: ([] as Array<string>),
         },
       }
     },
     mounted () {
-      const accessToken = this.$accessor.accessToken;
-      if (accessToken !== null && accessToken !== '') {
-        this.profile.backgroundImage = this.$accessor.UserModule.background!;
-        this.profile.avatarImage = this.$accessor.UserModule.avatar!;
-        this.profile.username = this.$accessor.UserModule.username!;
-        this.profile.email = this.$accessor.UserModule.email!;
-        this.profile.bio = this.$accessor.UserModule.introduction!;
-        this.profile.field = this.$accessor.UserModule.field!;
-
-        const sites = this.$accessor.UserModule.site!;
-        this.profile.sites = sites === '' ? [] : sites.split(',');
-
-        console.log(this.profile);
-        this.$forceUpdate();
+      this.isNewTeam = this.$route.query.username === undefined;
+      if (this.isNewTeam) {
+        new bootstrap.Modal(this.$refs.newTeamModal, {}).show();
       }
     },
     methods: {
@@ -168,47 +178,23 @@ export default defineComponent({
 
         return undefined;
       },
-      withdrawal (_event: any) {
-        if (confirm('정말 회원탈퇴 하시겠습니까? (복구 불가능)')) {
-        const config = {
-          data: {
-            username: this.$accessor.UserModule.username
-          },
-          headers: {
-            accept: '*/*',
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.$accessor.accessToken}`
-          }
-        };
-
-          axios
-            .delete('/api/user', config)
-            .then((response) => {
-              if (response.data.success) {
-                this.$accessor.setAccessToken('');
-                this.$accessor.UserModule.reset();
-
-                alert('회원탈퇴 처리 되었습니다');
-
-                window.location.href = '/home';
-              } else {
-                alert('회원탈퇴에 실패 했습니다. 다시 시도해 주세요!');
-              }
-            })
-            .catch((error) => {
-              alert('회원탈퇴 도중 알수 없는 문제가 발생했습니다!');
-              console.log(error);
-            });
-        }
-
-        return undefined;
-      },
       backBtn (_event: any) {
         history.back();
         return undefined;
       },
-      saveProfile (_event: any) {
-        const config = {
+      async saveProfile (_event: any) {
+        if (this.profile.username === "") {
+          alert("Username 내용을 채워 주셔야 합니다");
+          return undefined;
+        } else if (this.profile.email === "") {
+          alert("Email 내용을 채워 주셔야 합니다");
+          return undefined;
+        } else if (this.isNewTeam && this.profile.password === "") {
+          alert("팀 패스워드를 설정해 주시기 바랍니다");
+          return undefined;
+        }
+
+        const config: any = {
           headers: {
             accept: '*/*',
             'Content-Type': 'application/json',
@@ -216,34 +202,59 @@ export default defineComponent({
           }
         };
 
-        const data: any = {
-          username: this.$accessor.UserModule.username,
-          email: this.profile.email,
-          background: this.profile.backgroundImage,
-          avatar: this.profile.avatarImage,
-          introduction: this.profile.bio,
-          site: this.profile.sites.join(','),
-          field: this.profile.field
-        }
+        if (this.isNewTeam) {
+          // Create a new team
+          const data = {
+            username: this.profile.username,
+            email: this.profile.email,
+            password: this.profile.password
+          };
 
-        if (this.profile.password !== "") {
-          data.password = this.profile.password;
-        }
+          try {
+            const response = await axios.post('/api/team', data, config);
 
-        axios
-          .patch('/api/user', data, config)
-          .then((response) => {
-            if (response.data.success) {
-              alert('회원정보가 수정되었습니다');
-              window.location.href = '/profile';
-            } else {
-              alert('회원정보 수정에 실패했습니다! 다시 시도해 주세요');
+            if (!response.data.success) {
+              throw response;
             }
-          })
-          .catch((error) => {
-            alert('회원정보 수정 중에 알수없는 오류가 발생했습니다!');
+          } catch (error) {
+            alert('팀 생성 과정에서 오류가 발생했습니다!');
             console.error(error);
-          });
+            return undefined;
+          }
+        }
+
+        // Update the team data
+        setTimeout(async () => {
+          const data: any = {
+            username: this.profile.username,
+            email: this.profile.email,
+            background: this.profile.backgroundImage,
+            avatar: this.profile.avatarImage,
+            introduction: this.profile.bio,
+            site: JSON.stringify(this.profile.sites),
+            field: this.profile.field
+          }
+
+          if (this.profile.password !== "") {
+            data.password = this.profile.password;
+          }
+
+          try {
+            const response = await axios.patch('/api/team', data, config);
+
+            if (!response.data.success) {
+              throw response;
+            }
+
+            alert('새로운 팀이 생성되었습니다!');
+            window.location.href = '/team';
+
+          } catch (error) {
+            alert('팀 정보를 업데이트 하는 과정에서 오류가 발생했습니다!');
+            console.error(error);
+            return undefined;
+          }
+        }, 500);
 
         return undefined;
       },
