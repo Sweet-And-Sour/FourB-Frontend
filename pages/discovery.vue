@@ -29,7 +29,7 @@
               v-for="item in categories"
               :key="item.name"
               class="item"
-              :href="item.link"
+              :href="`/category?name=${item.name}`"
             >
               <div class="thumbnail-image" :style="`background-image: url(${item.thumbnail});`"></div>
               <div class="info">
