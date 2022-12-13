@@ -370,4 +370,23 @@ export default defineComponent({
     width: fit-content;
     margin: 40px auto;
   }
+
+
+  @media screen and (max-width: 600px) {}
+
+  @media screen and (max-width: 765px) {
+    main > section .title {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0 10px;
+      gap: 15px;
+    }
+
+    #artwork content .item,
+    #artwork content .item .thumbnail-image,
+    #category content .item .thumbnail-image {
+      width: 250px;
+      height: 200px;
+    }
+  }
 </style>

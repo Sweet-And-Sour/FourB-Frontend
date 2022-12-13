@@ -177,6 +177,7 @@ export default defineComponent({
   }
 
   #team-page .background h2 {
+    padding: 10px;
     font-size: 30px;
     color: white;
     z-index: 1;

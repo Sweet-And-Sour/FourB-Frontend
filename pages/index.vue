@@ -258,4 +258,16 @@ export default defineComponent({
     background-size: cover;
     scroll-snap-align: start;
   }
+
+  @media screen and (max-width: 600px) {}
+
+  @media screen and (max-width: 765px) {
+    #welcome {
+      padding: 0 !important;
+    }
+
+    #welcome content {
+
+    }
+  }
 </style>
