@@ -365,6 +365,10 @@ export default defineComponent({
         return undefined;
       }
 
+      if (data.thumbnail === null || data.thumbnail === '') {
+        data.thumbnail = '/api/static/noimage.png';
+      }
+
       axios
         .post('/api/content', data, config)
         .then((response) => {
