@@ -168,7 +168,7 @@ export default defineComponent({
       axios
         .get('/api/category', config)
         .then((response) => {
-          this.categories = response.data.results;
+          this.categories = response.data.results || [];
         })
     },
     getContents (_event: any) {
