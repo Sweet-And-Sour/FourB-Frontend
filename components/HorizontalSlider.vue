@@ -135,4 +135,13 @@ export default defineComponent({
   .slider > .right {
     right: 0;
   }
+
+  @media screen and (max-width: 600px) {}
+
+  @media screen and (max-width: 765px) {
+    .slider > .left,
+    .slider > .right {
+      width: 50px;
+    }
+  }
 </style>
