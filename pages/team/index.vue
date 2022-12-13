@@ -9,15 +9,20 @@
     <section id="my-teams">
         <h1>My Teams</h1>
 
-        <div class="teams">
-          <a
-            v-for="item in myTeams" 
-            :key="item.name"
-            :href="item.link"
-          >
-            <div class="item">{{ item.name }}</div>
-          </a>
-        </div>
+        <HorizontalSlider :item-width="250" :move-step="2">
+          <div class="teams">
+            <a
+              v-for="item in myTeams"
+              :key="item.name"
+              class="item"
+              :href="item.link"
+            >
+              <div class="avatar" :style="`background-image: url('${item.avatar}');`"></div>
+              <span class="name">{{ item.name }}</span>
+              <span class="description">{{ item.description }}</span>
+            </a>
+          </div>
+        </HorizontalSlider>
 
         <div class="d-grid">
           <a href="/team/edit" class="btn btn-outline-primary mt-3" type="button">Add New Team</a>
@@ -26,24 +31,6 @@
 
     <section id="find-teams">
       <h1>Find the Teams</h1>
-
-      <div class="controller">
-        <button class="btn ms-2 mb-3" :class="(currentSelectedField == '' ? 'btn-secondary' : 'btn-outline-secondary')">
-          <i class="bi bi-archive"></i>
-          All
-        </button>
-
-        <button
-          v-for="item in fields"
-          :key="item.name"
-          type="button"
-          class="btn ms-2 mb-3"
-          :class="(currentSelectedField == item.name ? 'btn-secondary' : 'btn-outline-secondary')"
-        >
-          <i class="bi" :class="`${item.icon}`"></i>
-          {{ item.name }}
-        </button>
-      </div>
 
       <div class="teams">
         <a
@@ -73,13 +60,53 @@ export default defineComponent({
       currentSelectedField: '',
       myTeams: [
         {
-            name: "Team1",
-            link: "#",
+          avatar: 'https://cdn.pixabay.com/photo/2021/10/19/10/56/cat-6723256_1280.jpg',
+          name: 'Team A',
+          description: 'Team Description',
+          link: '#',
         },
         {
-            name: "Team2",
-            link: "#",
+          avatar: 'https://cdn.pixabay.com/photo/2021/10/19/10/56/cat-6723256_1280.jpg',
+          name: 'Team B',
+          description: 'Team Description',
+          link: '#',
         },
+        {
+          avatar: 'https://cdn.pixabay.com/photo/2021/10/19/10/56/cat-6723256_1280.jpg',
+          name: 'Team C',
+          description: 'Team Description',
+          link: '#',
+        },
+        {
+          avatar: 'https://cdn.pixabay.com/photo/2021/10/19/10/56/cat-6723256_1280.jpg',
+          name: 'Team D',
+          description: 'Team Description',
+          link: '#',
+        },
+        {
+          avatar: 'https://cdn.pixabay.com/photo/2021/10/19/10/56/cat-6723256_1280.jpg',
+          name: 'Team E',
+          description: 'Team Description',
+          link: '#',
+        },
+        {
+          avatar: 'https://cdn.pixabay.com/photo/2021/10/19/10/56/cat-6723256_1280.jpg',
+          name: 'Team F',
+          description: 'Team Description',
+          link: '#',
+        },
+        {
+          avatar: 'https://cdn.pixabay.com/photo/2021/10/19/10/56/cat-6723256_1280.jpg',
+          name: 'Team G',
+          description: 'Team Description',
+          link: '#',
+        },
+        {
+          avatar: 'https://cdn.pixabay.com/photo/2021/10/19/10/56/cat-6723256_1280.jpg',
+          name: 'Team H',
+          description: 'Team Description',
+          link: '#',
+        }
       ],
       fields: [
         {
@@ -197,18 +224,22 @@ export default defineComponent({
     border-bottom: 1px solid gray;
   }
 
-  #my-teams .teams a {
+  .teams a {
     text-decoration: blink;
     display: inline-block;
   }
 
-  #my-teams .teams .item {
+  /* #my-teams .teams .item {
     background-color: #F1F3F6;
     border-radius: 20px;
     padding: 30px 50px;
     margin: 20px;
     font-size: 15px;
     color: black;
+  } */
+
+  #my-teams .teams {
+    display: flex;
   }
 
   #find-teams .teams {
@@ -220,7 +251,7 @@ export default defineComponent({
     justify-content: center;
   }
 
-  #find-teams .teams .item {
+  .teams .item {
     width: 250px;
     height: 300px;
     border-radius: 20px;
@@ -235,7 +266,7 @@ export default defineComponent({
     margin: 20px;
   }
 
-  #find-teams .teams .item .avatar {
+  .teams .item .avatar {
     width: 100px;
     height: 100px;
     background-size: cover;
@@ -244,11 +275,11 @@ export default defineComponent({
     margin: 20px 0;
   }
 
-  #find-teams .teams .item .name {
+  .teams .item .name {
     font-size: 20px;
   }
 
-  #find-teams .teams .item .description {
+  .teams .item .description {
     font-size: 16px;
   }
 </style>
