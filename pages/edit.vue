@@ -401,7 +401,6 @@ export default defineComponent({
     width: 100%;
     max-width: 1200px;
     margin: 40px auto;
-    margin-left: 5px;
   }
 
   #edit-page > section h2 {
